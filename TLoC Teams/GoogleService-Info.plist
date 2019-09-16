@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>146052429476-ogjccp3s15vum9ft7k7ec5cs6jh4dugc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.146052429476-ogjccp3s15vum9ft7k7ec5cs6jh4dugc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBIavVbInsRZz9nkLjPngdSpkT1QRdqLK8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>146052429476</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.tloc.TLoC-Teams</string>
+	<key>PROJECT_ID</key>
+	<string>tloc-teams</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tloc-teams.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:146052429476:ios:ed375a67bf0e09201b1831</string>
+	<key>DATABASE_URL</key>
+	<string>https://tloc-teams.firebaseio.com</string>
+</dict>
+</plist>

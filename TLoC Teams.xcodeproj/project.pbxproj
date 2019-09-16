@@ -1,0 +1,992 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D9BEAB919B1887A18274FEE /* Pods_TLoC_Teams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E0C066E281C19D6BEAB3E3 /* Pods_TLoC_Teams.framework */; };
+		D85BB529F2C6F214E84C0E61 /* Pods_TLoC_TeamsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B485EEC1D354A5F07E963BC2 /* Pods_TLoC_TeamsUITests.framework */; };
+		DA1A634A232AC197007908E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A6349232AC197007908E8 /* AppDelegate.swift */; };
+		DA1A634C232AC197007908E8 /* ChatOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A634B232AC197007908E8 /* ChatOverviewViewController.swift */; };
+		DA1A634E232AC197007908E8 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A634D232AC197007908E8 /* EventViewController.swift */; };
+		DA1A6351232AC197007908E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA1A634F232AC197007908E8 /* Main.storyboard */; };
+		DA1A6353232AC19C007908E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA1A6352232AC19C007908E8 /* Assets.xcassets */; };
+		DA1A6356232AC19C007908E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA1A6354232AC19C007908E8 /* LaunchScreen.storyboard */; };
+		DA1A6361232AC19D007908E8 /* TLoC_TeamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A6360232AC19D007908E8 /* TLoC_TeamsTests.swift */; };
+		DA1A636C232AC19D007908E8 /* TLoC_TeamsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A636B232AC19D007908E8 /* TLoC_TeamsUITests.swift */; };
+		DA1A637A232AC35C007908E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA1A6379232AC35B007908E8 /* GoogleService-Info.plist */; };
+		DA1A639F232AC452007908E8 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A638F232AC450007908E8 /* NetworkService.swift */; };
+		DA1A63A1232AC452007908E8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A6396232AC451007908E8 /* Constants.swift */; };
+		DA1A63A2232AC452007908E8 /* EndpointRouter+URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A639B232AC451007908E8 /* EndpointRouter+URLRequest.swift */; };
+		DA1A63A3232AC452007908E8 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A639C232AC451007908E8 /* Array+Extension.swift */; };
+		DA1A63A4232AC452007908E8 /* EndpointRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A639E232AC451007908E8 /* EndpointRouter.swift */; };
+		DA1A63A7232AC74A007908E8 /* ChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A63A6232AC74A007908E8 /* ChatDataSource.swift */; };
+		DA1A63A9232AC76D007908E8 /* ChatOverviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A63A8232AC76D007908E8 /* ChatOverviewDataSource.swift */; };
+		DA1A63AB232AC7F4007908E8 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A63AA232AC7F4007908E8 /* ChatViewController.swift */; };
+		DA1A63AD232AC80A007908E8 /* EventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A63AC232AC80A007908E8 /* EventDataSource.swift */; };
+		DA1A63AF232AC820007908E8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A63AE232AC820007908E8 /* SettingsViewController.swift */; };
+		DA1A63B4232AD1EE007908E8 /* colors.xml in Resources */ = {isa = PBXBuildFile; fileRef = DA1A63B3232AD1EE007908E8 /* colors.xml */; };
+		DA7A4830232AD5FE00673BEC /* Scenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A482D232AD5FE00673BEC /* Scenes.swift */; };
+		DA7A4831232AD5FE00673BEC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A482E232AD5FE00673BEC /* Colors.swift */; };
+		DA7A4832232AD5FE00673BEC /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A482F232AD5FE00673BEC /* Segues.swift */; };
+		DA7A4835232AD70E00673BEC /* StoryboardInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A4834232AD70E00673BEC /* StoryboardInitializable.swift */; };
+		DC6452CA9AB51E4C6BEFB8FC /* Pods_TLoC_TeamsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09047E7582661CB69D8D40A /* Pods_TLoC_TeamsTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA1A635D232AC19D007908E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA1A633E232AC197007908E8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA1A6345232AC197007908E8;
+			remoteInfo = "TLoC Teams";
+		};
+		DA1A6368232AC19D007908E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA1A633E232AC197007908E8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA1A6345232AC197007908E8;
+			remoteInfo = "TLoC Teams";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		30F281DB584F067204DD11AA /* Pods-TLoC Teams.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLoC Teams.debug.xcconfig"; path = "Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams.debug.xcconfig"; sourceTree = "<group>"; };
+		7949999BE1BBB58B00A58BF0 /* Pods-TLoC Teams.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLoC Teams.release.xcconfig"; path = "Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams.release.xcconfig"; sourceTree = "<group>"; };
+		919D47563F80C1DD1C4D4666 /* Pods-TLoC TeamsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLoC TeamsUITests.release.xcconfig"; path = "Target Support Files/Pods-TLoC TeamsUITests/Pods-TLoC TeamsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B485EEC1D354A5F07E963BC2 /* Pods_TLoC_TeamsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TLoC_TeamsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6E0C066E281C19D6BEAB3E3 /* Pods_TLoC_Teams.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TLoC_Teams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA1A6346232AC197007908E8 /* TLoC Teams.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TLoC Teams.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA1A6349232AC197007908E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DA1A634B232AC197007908E8 /* ChatOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOverviewViewController.swift; sourceTree = "<group>"; };
+		DA1A634D232AC197007908E8 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		DA1A6350232AC197007908E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DA1A6352232AC19C007908E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA1A6355232AC19C007908E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DA1A6357232AC19C007908E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA1A635C232AC19D007908E8 /* TLoC TeamsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TLoC TeamsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA1A6360232AC19D007908E8 /* TLoC_TeamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLoC_TeamsTests.swift; sourceTree = "<group>"; };
+		DA1A6362232AC19D007908E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA1A6367232AC19D007908E8 /* TLoC TeamsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TLoC TeamsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA1A636B232AC19D007908E8 /* TLoC_TeamsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLoC_TeamsUITests.swift; sourceTree = "<group>"; };
+		DA1A636D232AC19D007908E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA1A6379232AC35B007908E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DA1A638F232AC450007908E8 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		DA1A6396232AC451007908E8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DA1A639B232AC451007908E8 /* EndpointRouter+URLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EndpointRouter+URLRequest.swift"; sourceTree = "<group>"; };
+		DA1A639C232AC451007908E8 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		DA1A639E232AC451007908E8 /* EndpointRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointRouter.swift; sourceTree = "<group>"; };
+		DA1A63A6232AC74A007908E8 /* ChatDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataSource.swift; sourceTree = "<group>"; };
+		DA1A63A8232AC76D007908E8 /* ChatOverviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOverviewDataSource.swift; sourceTree = "<group>"; };
+		DA1A63AA232AC7F4007908E8 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		DA1A63AC232AC80A007908E8 /* EventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataSource.swift; sourceTree = "<group>"; };
+		DA1A63AE232AC820007908E8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DA1A63B3232AD1EE007908E8 /* colors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = colors.xml; sourceTree = "<group>"; };
+		DA7A482D232AD5FE00673BEC /* Scenes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scenes.swift; sourceTree = "<group>"; };
+		DA7A482E232AD5FE00673BEC /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		DA7A482F232AD5FE00673BEC /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
+		DA7A4834232AD70E00673BEC /* StoryboardInitializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardInitializable.swift; sourceTree = "<group>"; };
+		E00E4294A4B03240B86B742D /* Pods-TLoC TeamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLoC TeamsTests.release.xcconfig"; path = "Target Support Files/Pods-TLoC TeamsTests/Pods-TLoC TeamsTests.release.xcconfig"; sourceTree = "<group>"; };
+		E09047E7582661CB69D8D40A /* Pods_TLoC_TeamsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TLoC_TeamsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E77886FF03AABD264575E809 /* Pods-TLoC TeamsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLoC TeamsTests.debug.xcconfig"; path = "Target Support Files/Pods-TLoC TeamsTests/Pods-TLoC TeamsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E8F4D03F43513E1EEC3BA1A6 /* Pods-TLoC TeamsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TLoC TeamsUITests.debug.xcconfig"; path = "Target Support Files/Pods-TLoC TeamsUITests/Pods-TLoC TeamsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA1A6343232AC197007908E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D9BEAB919B1887A18274FEE /* Pods_TLoC_Teams.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A6359232AC19D007908E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC6452CA9AB51E4C6BEFB8FC /* Pods_TLoC_TeamsTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A6364232AC19D007908E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D85BB529F2C6F214E84C0E61 /* Pods_TLoC_TeamsUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		71C054E17E5D32615D64DA70 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C6E0C066E281C19D6BEAB3E3 /* Pods_TLoC_Teams.framework */,
+				E09047E7582661CB69D8D40A /* Pods_TLoC_TeamsTests.framework */,
+				B485EEC1D354A5F07E963BC2 /* Pods_TLoC_TeamsUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D68D1D1A16C32A0FC152E52F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				30F281DB584F067204DD11AA /* Pods-TLoC Teams.debug.xcconfig */,
+				7949999BE1BBB58B00A58BF0 /* Pods-TLoC Teams.release.xcconfig */,
+				E77886FF03AABD264575E809 /* Pods-TLoC TeamsTests.debug.xcconfig */,
+				E00E4294A4B03240B86B742D /* Pods-TLoC TeamsTests.release.xcconfig */,
+				E8F4D03F43513E1EEC3BA1A6 /* Pods-TLoC TeamsUITests.debug.xcconfig */,
+				919D47563F80C1DD1C4D4666 /* Pods-TLoC TeamsUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DA1A633D232AC197007908E8 = {
+			isa = PBXGroup;
+			children = (
+				DA1A6348232AC197007908E8 /* TLoC Teams */,
+				DA1A635F232AC19D007908E8 /* TLoC TeamsTests */,
+				DA1A636A232AC19D007908E8 /* TLoC TeamsUITests */,
+				DA1A6347232AC197007908E8 /* Products */,
+				D68D1D1A16C32A0FC152E52F /* Pods */,
+				71C054E17E5D32615D64DA70 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DA1A6347232AC197007908E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A6346232AC197007908E8 /* TLoC Teams.app */,
+				DA1A635C232AC19D007908E8 /* TLoC TeamsTests.xctest */,
+				DA1A6367232AC19D007908E8 /* TLoC TeamsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA1A6348232AC197007908E8 /* TLoC Teams */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A6379232AC35B007908E8 /* GoogleService-Info.plist */,
+				DA1A6357232AC19C007908E8 /* Info.plist */,
+				DA1A6395232AC451007908E8 /* App */,
+				DA1A6394232AC450007908E8 /* Cells */,
+				DA1A6390232AC450007908E8 /* Components */,
+				DA1A639A232AC451007908E8 /* Extension */,
+				DA7A482B232AD56200673BEC /* Generated */,
+				DA1A639D232AC451007908E8 /* Helper */,
+				DA1A6397232AC451007908E8 /* Model */,
+				DA7A4833232AD69100673BEC /* Protocols */,
+				DA1A63A5232AC478007908E8 /* Resources */,
+				DA1A638D232AC450007908E8 /* Services */,
+				DA1A6392232AC450007908E8 /* ViewControllers */,
+				DA1A6391232AC450007908E8 /* Views */,
+			);
+			path = "TLoC Teams";
+			sourceTree = "<group>";
+		};
+		DA1A635F232AC19D007908E8 /* TLoC TeamsTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A6360232AC19D007908E8 /* TLoC_TeamsTests.swift */,
+				DA1A6362232AC19D007908E8 /* Info.plist */,
+			);
+			path = "TLoC TeamsTests";
+			sourceTree = "<group>";
+		};
+		DA1A636A232AC19D007908E8 /* TLoC TeamsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A636B232AC19D007908E8 /* TLoC_TeamsUITests.swift */,
+				DA1A636D232AC19D007908E8 /* Info.plist */,
+			);
+			path = "TLoC TeamsUITests";
+			sourceTree = "<group>";
+		};
+		DA1A638D232AC450007908E8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A638E232AC450007908E8 /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DA1A638E232AC450007908E8 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A638F232AC450007908E8 /* NetworkService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DA1A6390232AC450007908E8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DA1A6391232AC450007908E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DA1A6392232AC450007908E8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A63B0232AC827007908E8 /* Chat */,
+				DA1A63B1232AC830007908E8 /* Event */,
+				DA1A63B2232AC835007908E8 /* Settings */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DA1A6394232AC450007908E8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		DA1A6395232AC451007908E8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A6349232AC197007908E8 /* AppDelegate.swift */,
+				DA1A6396232AC451007908E8 /* Constants.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DA1A6397232AC451007908E8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A6398232AC451007908E8 /* Buisness */,
+				DA1A6399232AC451007908E8 /* API */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DA1A6398232AC451007908E8 /* Buisness */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Buisness;
+			sourceTree = "<group>";
+		};
+		DA1A6399232AC451007908E8 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		DA1A639A232AC451007908E8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A639B232AC451007908E8 /* EndpointRouter+URLRequest.swift */,
+				DA1A639C232AC451007908E8 /* Array+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DA1A639D232AC451007908E8 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A639E232AC451007908E8 /* EndpointRouter.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		DA1A63A5232AC478007908E8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A63B6232AD4A4007908E8 /* Storyboards */,
+				DA1A63B3232AD1EE007908E8 /* colors.xml */,
+				DA1A6352232AC19C007908E8 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DA1A63B0232AC827007908E8 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A63A8232AC76D007908E8 /* ChatOverviewDataSource.swift */,
+				DA1A634B232AC197007908E8 /* ChatOverviewViewController.swift */,
+				DA1A63A6232AC74A007908E8 /* ChatDataSource.swift */,
+				DA1A63AA232AC7F4007908E8 /* ChatViewController.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		DA1A63B1232AC830007908E8 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A63AC232AC80A007908E8 /* EventDataSource.swift */,
+				DA1A634D232AC197007908E8 /* EventViewController.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		DA1A63B2232AC835007908E8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A63AE232AC820007908E8 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		DA1A63B6232AD4A4007908E8 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				DA1A6354232AC19C007908E8 /* LaunchScreen.storyboard */,
+				DA1A634F232AC197007908E8 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		DA7A482B232AD56200673BEC /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				DA7A482C232AD56C00673BEC /* SwiftGen */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		DA7A482C232AD56C00673BEC /* SwiftGen */ = {
+			isa = PBXGroup;
+			children = (
+				DA7A482E232AD5FE00673BEC /* Colors.swift */,
+				DA7A482D232AD5FE00673BEC /* Scenes.swift */,
+				DA7A482F232AD5FE00673BEC /* Segues.swift */,
+			);
+			path = SwiftGen;
+			sourceTree = "<group>";
+		};
+		DA7A4833232AD69100673BEC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				DA7A4834232AD70E00673BEC /* StoryboardInitializable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA1A6345232AC197007908E8 /* TLoC Teams */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA1A6370232AC19D007908E8 /* Build configuration list for PBXNativeTarget "TLoC Teams" */;
+			buildPhases = (
+				D76336CBE9961EEE2BC79DB4 /* [CP] Check Pods Manifest.lock */,
+				DA1A6342232AC197007908E8 /* Sources */,
+				DA1A6343232AC197007908E8 /* Frameworks */,
+				DA1A6344232AC197007908E8 /* Resources */,
+				D4D82F434F2A0D37A5CD56BE /* [CP] Embed Pods Frameworks */,
+				0CD986DEFD776D0393E8C033 /* [CP] Copy Pods Resources */,
+				DA1A63B5232AD371007908E8 /* Swift Gen */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TLoC Teams";
+			productName = "TLoC Teams";
+			productReference = DA1A6346232AC197007908E8 /* TLoC Teams.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA1A635B232AC19D007908E8 /* TLoC TeamsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA1A6373232AC19D007908E8 /* Build configuration list for PBXNativeTarget "TLoC TeamsTests" */;
+			buildPhases = (
+				5ADBB228A5B91CB503E79408 /* [CP] Check Pods Manifest.lock */,
+				DA1A6358232AC19D007908E8 /* Sources */,
+				DA1A6359232AC19D007908E8 /* Frameworks */,
+				DA1A635A232AC19D007908E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA1A635E232AC19D007908E8 /* PBXTargetDependency */,
+			);
+			name = "TLoC TeamsTests";
+			productName = "TLoC TeamsTests";
+			productReference = DA1A635C232AC19D007908E8 /* TLoC TeamsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DA1A6366232AC19D007908E8 /* TLoC TeamsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA1A6376232AC19D007908E8 /* Build configuration list for PBXNativeTarget "TLoC TeamsUITests" */;
+			buildPhases = (
+				D128C07E5F0EAA7C94A3FF50 /* [CP] Check Pods Manifest.lock */,
+				DA1A6363232AC19D007908E8 /* Sources */,
+				DA1A6364232AC19D007908E8 /* Frameworks */,
+				DA1A6365232AC19D007908E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA1A6369232AC19D007908E8 /* PBXTargetDependency */,
+			);
+			name = "TLoC TeamsUITests";
+			productName = "TLoC TeamsUITests";
+			productReference = DA1A6367232AC19D007908E8 /* TLoC TeamsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA1A633E232AC197007908E8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = TLoC;
+				TargetAttributes = {
+					DA1A6345232AC197007908E8 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					DA1A635B232AC19D007908E8 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = DA1A6345232AC197007908E8;
+					};
+					DA1A6366232AC19D007908E8 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = DA1A6345232AC197007908E8;
+					};
+				};
+			};
+			buildConfigurationList = DA1A6341232AC197007908E8 /* Build configuration list for PBXProject "TLoC Teams" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA1A633D232AC197007908E8;
+			productRefGroup = DA1A6347232AC197007908E8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA1A6345232AC197007908E8 /* TLoC Teams */,
+				DA1A635B232AC19D007908E8 /* TLoC TeamsTests */,
+				DA1A6366232AC19D007908E8 /* TLoC TeamsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA1A6344232AC197007908E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1A63B4232AD1EE007908E8 /* colors.xml in Resources */,
+				DA1A6356232AC19C007908E8 /* LaunchScreen.storyboard in Resources */,
+				DA1A637A232AC35C007908E8 /* GoogleService-Info.plist in Resources */,
+				DA1A6353232AC19C007908E8 /* Assets.xcassets in Resources */,
+				DA1A6351232AC197007908E8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A635A232AC19D007908E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A6365232AC19D007908E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0CD986DEFD776D0393E8C033 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5ADBB228A5B91CB503E79408 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TLoC TeamsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D128C07E5F0EAA7C94A3FF50 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TLoC TeamsUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4D82F434F2A0D37A5CD56BE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TLoC Teams/Pods-TLoC Teams-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D76336CBE9961EEE2BC79DB4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TLoC Teams-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA1A63B5232AD371007908E8 /* Swift Gen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Gen";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh SwiftGen.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA1A6342232AC197007908E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA7A4830232AD5FE00673BEC /* Scenes.swift in Sources */,
+				DA7A4831232AD5FE00673BEC /* Colors.swift in Sources */,
+				DA1A634E232AC197007908E8 /* EventViewController.swift in Sources */,
+				DA7A4832232AD5FE00673BEC /* Segues.swift in Sources */,
+				DA1A63A7232AC74A007908E8 /* ChatDataSource.swift in Sources */,
+				DA1A63AB232AC7F4007908E8 /* ChatViewController.swift in Sources */,
+				DA1A634A232AC197007908E8 /* AppDelegate.swift in Sources */,
+				DA1A63A2232AC452007908E8 /* EndpointRouter+URLRequest.swift in Sources */,
+				DA1A639F232AC452007908E8 /* NetworkService.swift in Sources */,
+				DA1A634C232AC197007908E8 /* ChatOverviewViewController.swift in Sources */,
+				DA1A63A1232AC452007908E8 /* Constants.swift in Sources */,
+				DA1A63A9232AC76D007908E8 /* ChatOverviewDataSource.swift in Sources */,
+				DA1A63AD232AC80A007908E8 /* EventDataSource.swift in Sources */,
+				DA1A63AF232AC820007908E8 /* SettingsViewController.swift in Sources */,
+				DA7A4835232AD70E00673BEC /* StoryboardInitializable.swift in Sources */,
+				DA1A63A3232AC452007908E8 /* Array+Extension.swift in Sources */,
+				DA1A63A4232AC452007908E8 /* EndpointRouter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A6358232AC19D007908E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1A6361232AC19D007908E8 /* TLoC_TeamsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1A6363232AC19D007908E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA1A636C232AC19D007908E8 /* TLoC_TeamsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA1A635E232AC19D007908E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA1A6345232AC197007908E8 /* TLoC Teams */;
+			targetProxy = DA1A635D232AC19D007908E8 /* PBXContainerItemProxy */;
+		};
+		DA1A6369232AC19D007908E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA1A6345232AC197007908E8 /* TLoC Teams */;
+			targetProxy = DA1A6368232AC19D007908E8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DA1A634F232AC197007908E8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA1A6350232AC197007908E8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA1A6354232AC19C007908E8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA1A6355232AC19C007908E8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DA1A636E232AC19D007908E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DA1A636F232AC19D007908E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA1A6371232AC19D007908E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30F281DB584F067204DD11AA /* Pods-TLoC Teams.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56478QXF85;
+				INFOPLIST_FILE = "TLoC Teams/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tloc.TLoC-Teams";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DA1A6372232AC19D007908E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7949999BE1BBB58B00A58BF0 /* Pods-TLoC Teams.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56478QXF85;
+				INFOPLIST_FILE = "TLoC Teams/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tloc.TLoC-Teams";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DA1A6374232AC19D007908E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E77886FF03AABD264575E809 /* Pods-TLoC TeamsTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56478QXF85;
+				INFOPLIST_FILE = "TLoC TeamsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tloc.TLoC-TeamsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TLoC Teams.app/TLoC Teams";
+			};
+			name = Debug;
+		};
+		DA1A6375232AC19D007908E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E00E4294A4B03240B86B742D /* Pods-TLoC TeamsTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56478QXF85;
+				INFOPLIST_FILE = "TLoC TeamsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tloc.TLoC-TeamsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TLoC Teams.app/TLoC Teams";
+			};
+			name = Release;
+		};
+		DA1A6377232AC19D007908E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8F4D03F43513E1EEC3BA1A6 /* Pods-TLoC TeamsUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56478QXF85;
+				INFOPLIST_FILE = "TLoC TeamsUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tloc.TLoC-TeamsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "TLoC Teams";
+			};
+			name = Debug;
+		};
+		DA1A6378232AC19D007908E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 919D47563F80C1DD1C4D4666 /* Pods-TLoC TeamsUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56478QXF85;
+				INFOPLIST_FILE = "TLoC TeamsUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tloc.TLoC-TeamsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "TLoC Teams";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA1A6341232AC197007908E8 /* Build configuration list for PBXProject "TLoC Teams" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA1A636E232AC19D007908E8 /* Debug */,
+				DA1A636F232AC19D007908E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA1A6370232AC19D007908E8 /* Build configuration list for PBXNativeTarget "TLoC Teams" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA1A6371232AC19D007908E8 /* Debug */,
+				DA1A6372232AC19D007908E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA1A6373232AC19D007908E8 /* Build configuration list for PBXNativeTarget "TLoC TeamsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA1A6374232AC19D007908E8 /* Debug */,
+				DA1A6375232AC19D007908E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA1A6376232AC19D007908E8 /* Build configuration list for PBXNativeTarget "TLoC TeamsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA1A6377232AC19D007908E8 /* Debug */,
+				DA1A6378232AC19D007908E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA1A633E232AC197007908E8 /* Project object */;
+}

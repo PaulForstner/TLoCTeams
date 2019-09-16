@@ -1,0 +1,16 @@
+input_dir: TLoC Teams/Resources
+output_dir: TLoC Teams/Generated/SwiftGen
+
+colors:
+  inputs: colors.xml
+  outputs:
+    templateName: swift4
+    output: Colors.swift
+
+ib:
+  inputs: Storyboards
+  outputs:
+    - templateName: scenes-swift4
+      output: Scenes.swift
+    - templateName: segues-swift4
+      output: Segues.swift
