@@ -11,22 +11,32 @@ import Firebase
 
 final class ChatViewController: UIViewController {
     
+    // MARK: - IBOutlet
+    
+    @IBOutlet private weak var tableView: UITableView!
+    
+    // MARK: - Lazy
+    
+    private lazy var dataSource: ChatDataSource = {
+        return ChatDataSource(didSelectHandler: { (item) in
+            
+        }, updateHandler: { [weak self] in
+            self?.tableView.reloadData()
+        })
+    }()
+    
     // MARK: - Properties
     
     private var displayName = "Anonymous"
     private var ref: DatabaseReference!
     fileprivate var _refHandle: DatabaseHandle!
-    private var messages: [DataSnapshot]! = []
-    
-    // MARK: - IBOutlets
-    
-    @IBOutlet private weak var tableView: UITableView!
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataSource.configure(tableView: tableView)
         configureDatabase()
         
         
@@ -36,19 +46,26 @@ final class ChatViewController: UIViewController {
     
     deinit {
         ref.child("messages").removeObserver(withHandle: _refHandle)
-        
-        _refHandle = ref.child("messages").observe(.childAdded) { (snapshot: DataSnapshot)in
-            self.messages.append(snapshot)
-            self.tableView.insertRows(at: [IndexPath(row: self.messages.count-1, section: 0)], with: .automatic)
-            self.scrollToBottomMessage()
-        }
     }
     
     // MARK: - Setup
     
+    private func setupUI() {
+        
+    }
+    
     private func configureDatabase() {
         ref = Database.database().reference()
         
+        _refHandle = ref.child("messages").observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
+            
+            guard let message = MappingHelper.mapMessage(from: snapshot.value) else {
+                return
+            }
+            self?.dataSource.append(message)
+//                        self?.tableView.insertRows(at: [IndexPath(row: self?.messages.count-1, section: 0)], with: .automatic)
+            self?.scrollToBottomMessage()
+        }
     }
     
     // MARK: - Helper
@@ -62,9 +79,9 @@ final class ChatViewController: UIViewController {
     }
     
     private func scrollToBottomMessage() {
-        if messages.count == 0 { return }
-        let bottomMessageIndex = IndexPath(row: tableView.numberOfRows(inSection: 0) - 1, section: 0)
-        tableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
+//        if messages.count == 0 { return }
+//        let bottomMessageIndex = IndexPath(row: tableView.numberOfRows(inSection: 0) - 1, section: 0)
+//        tableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
     }
 }
 
