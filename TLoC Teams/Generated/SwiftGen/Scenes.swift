@@ -20,7 +20,7 @@ internal enum StoryboardScene {
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
 
-    internal static let initialScene = InitialSceneType<UIKit.UITabBarController>(storyboard: Main.self)
+    internal static let initialScene = InitialSceneType<UIKit.UINavigationController>(storyboard: Main.self)
 
     internal static let chatOverviewViewController = SceneType<TLoC_Teams.ChatOverviewViewController>(storyboard: Main.self, identifier: "ChatOverviewViewController")
 
@@ -28,9 +28,13 @@ internal enum StoryboardScene {
 
     internal static let eventViewController = SceneType<TLoC_Teams.EventViewController>(storyboard: Main.self, identifier: "EventViewController")
 
+    internal static let inputViewController = SceneType<TLoC_Teams.InputViewController>(storyboard: Main.self, identifier: "InputViewController")
+
+    internal static let loginViewController = SceneType<TLoC_Teams.LoginViewController>(storyboard: Main.self, identifier: "LoginViewController")
+
     internal static let settingsViewController = SceneType<TLoC_Teams.SettingsViewController>(storyboard: Main.self, identifier: "SettingsViewController")
 
-    internal static let tabBarController = SceneType<UIKit.UITabBarController>(storyboard: Main.self, identifier: "TabBarController")
+    internal static let tabBarController = SceneType<TLoC_Teams.TabBarViewController>(storyboard: Main.self, identifier: "TabBarController")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name

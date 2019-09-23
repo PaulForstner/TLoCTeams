@@ -10,9 +10,9 @@ pod 'Alamofire', '~> 5.0.0-rc.2'
 
 pod 'Firebase/Storage'
 pod 'Firebase/Core'
+pod 'Firebase/Auth'
 pod 'Firebase/Database'
-pod 'Firebase/RemoteConfig'
-pod 'FirebaseUI'
+pod 'Firebase/Firestore'
 
   target 'TLoC TeamsTests' do
     inherit! :search_paths

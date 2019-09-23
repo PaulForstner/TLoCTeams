@@ -1,15 +1,15 @@
 //
-//  ChatTableViewCell.swift
+//  MessageTableViewCell.swift
 //  TLoC Teams
 //
-//  Created by Paul Forstner on 17.09.19.
+//  Created by Paul Forstner on 23.09.19.
 //  Copyright © 2019 TLoC. All rights reserved.
 //
 
 import UIKit
 
-class ChatTableViewCell: UITableViewCell {
-
+class MessageTableViewCell: UITableViewCell {
+    
     // MARK: - IBOutlet
     
     
@@ -29,8 +29,8 @@ class ChatTableViewCell: UITableViewCell {
     
     // MARK: - Configure
     
-    public func configure(with item: Chat?) {
+    public func configure(with item: Message?) {
         
-        textLabel?.text = item?.name
+        textLabel?.text = item?.text
     }
 }

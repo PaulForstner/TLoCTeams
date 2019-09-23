@@ -12,7 +12,7 @@ class ChatDataSource: NSObject {
     
     // MARK: - Constants
     
-    let cellIdentifier = Constants.CellIdentifier.chatCell
+    let cellIdentifier = Constants.CellIdentifier.messageCell
     
     
     // MARK: - Typealias
@@ -71,7 +71,7 @@ extension ChatDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ChatTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else {
             return UITableViewCell()
         }
         

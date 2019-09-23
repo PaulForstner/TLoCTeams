@@ -19,8 +19,9 @@ class MappingHelper: NSObject {
         
         let name = dic[Constants.MessageFields.name] ?? ""
         let text = dic[Constants.MessageFields.text] ?? ""
+        let id = dic[Constants.MessageFields.id] ?? ""
         
-        return Message(name: name, text: text)
+        return Message(name: name, id: id, text: text)
     }
     
     class func mapMessages(from messageDic: Any?) -> [Message] {
@@ -42,7 +43,7 @@ class MappingHelper: NSObject {
         return messages
     }
     
-    class func mapChat(from dic: Any?) -> Chat? {
+    class func mapChat(from dic: Any?, id: String) -> Chat? {
         
         guard let dic = dic as? [String: Any] else {
             return nil
@@ -52,7 +53,7 @@ class MappingHelper: NSObject {
         let messagesDic = dic[Constants.ChatFields.messages] as? [[String: String]]
         let messages = MappingHelper.mapMessages(from: messagesDic)
         let members = dic[Constants.ChatFields.members] as? [Member] ?? []
-        return Chat(name: name, messages: messages, members: members)
+        return Chat(name: name, id: id, messages: messages, members: members)
     }
     
     class func mapMember(from dic: Any?) -> Member? {
@@ -62,8 +63,9 @@ class MappingHelper: NSObject {
         }
         
         let name = dic[Constants.MemberFields.name] as? String ?? ""
+        let id = dic[Constants.MemberFields.id] as? String ?? ""
         
-        return Member(name: name)
+        return Member(name: name, id: id)
     }
     
     class func mapMembers(from memberDic: Any?) -> [Member] {

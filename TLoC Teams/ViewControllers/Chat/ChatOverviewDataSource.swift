@@ -73,7 +73,7 @@ extension ChatOverviewDataSource: UITableViewDataSource {
             return UITableViewCell()
         }
         
-//        cell.configure(with: dataSource.item(at: indexPath.row))
+        cell.configure(with: dataSource.item(at: indexPath.row))
         
         return cell
     }

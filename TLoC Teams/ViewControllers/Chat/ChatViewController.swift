@@ -37,7 +37,7 @@ final class ChatViewController: UIViewController {
         super.viewDidLoad()
         
         dataSource.configure(tableView: tableView)
-        configureDatabase()
+        setupDatabase()
         
         
         let data = [Constants.MessageFields.text: "test"]
@@ -54,7 +54,7 @@ final class ChatViewController: UIViewController {
         
     }
     
-    private func configureDatabase() {
+    private func setupDatabase() {
         ref = Database.database().reference()
         
         _refHandle = ref.child("messages").observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in

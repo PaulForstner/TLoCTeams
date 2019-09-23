@@ -20,4 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
+    
+    // MARK: - SetRootViewController
+    
+    func setLoginToRoot() {
+        
+        let vc = LoginViewController.makeFromStoryboard()
+        window?.rootViewController = vc
+    }
+    
+    func setTabBarToRoot() {
+        
+        let vc = TabBarViewController.makeFromStoryboard()
+        window?.rootViewController = vc
+    }
 }

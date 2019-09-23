@@ -18,14 +18,17 @@ struct Constants {
     
     // MARK: - MessageFields
     
-    struct ChatFields {
-        
-        
-        let name: String
-        let messages: [Message]
-        let members: [Member]
+    struct UserFields {
         
         static let name = "name"
+    }
+    
+    // MARK: - MessageFields
+    
+    struct ChatFields {
+        
+        static let name = "name"
+        static let id = "id"
         static let messages = "messages"
         static let members = "members"
     }
@@ -33,7 +36,9 @@ struct Constants {
     // MARK: - MessageFields
     
     struct MessageFields {
+        
         static let name = "name"
+        static let id = "id"
         static let text = "text"
         static let imageUrl = "photoUrl"
     }
@@ -43,6 +48,7 @@ struct Constants {
     struct MemberFields {
         
         static let name = "name"
+        static let id = "id"
     }
     
     // MARK: - CellIdentifier
@@ -50,6 +56,7 @@ struct Constants {
     struct CellIdentifier {
         
         static let chatCell = "ChatTableViewCell"
+        static let messageCell = "MessageTableViewCell"
     }
 }
 
