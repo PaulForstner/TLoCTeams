@@ -11,54 +11,28 @@ import Firebase
 
 class MappingHelper: NSObject {
     
-    class func mapMessage(from dic: Any?) -> Message? {
+    class func mapUser(from snapShot: DataSnapshot) -> User? {
         
-        guard let dic = dic as? [String: String] else {
+        guard let dic = snapShot.value as? [String: Any],
+            let name = dic[Constants.UserFields.name] as? String else {
+                return nil
+        }
+        
+        return User(name: name, id: snapShot.key)
+    }
+    
+    class func mapMessage(from snapShot: DataSnapshot) -> Message? {
+        
+        guard let dic = snapShot.value as? [String: Any] else {
             return nil
         }
         
-        let name = dic[Constants.MessageFields.name] ?? ""
-        let text = dic[Constants.MessageFields.text] ?? ""
-        let id = dic[Constants.MessageFields.id] ?? ""
-        
-        return Message(name: name, id: id, text: text)
+        return MappingHelper.mapMessage(from: dic, id: snapShot.key)
     }
     
-    class func mapMessages(from messageDic: Any?) -> [Message] {
+    class func mapMember(from snapShot: DataSnapshot) -> Member? {
         
-        guard let messageDic = messageDic as? [[String: String]] else {
-            return []
-        }
-        
-        var messages = [Message]()
-        
-        for dic in messageDic {
-            
-            guard let message = MappingHelper.mapMessage(from: dic) else {
-                continue
-            }
-            messages.append(message)
-        }
-        
-        return messages
-    }
-    
-    class func mapChat(from dic: Any?, id: String) -> Chat? {
-        
-        guard let dic = dic as? [String: Any] else {
-            return nil
-        }
-        
-        let name = dic[Constants.ChatFields.name] as? String ?? ""
-        let messagesDic = dic[Constants.ChatFields.messages] as? [[String: String]]
-        let messages = MappingHelper.mapMessages(from: messagesDic)
-        let members = dic[Constants.ChatFields.members] as? [Member] ?? []
-        return Chat(name: name, id: id, messages: messages, members: members)
-    }
-    
-    class func mapMember(from dic: Any?) -> Member? {
-        
-        guard let dic = dic as? [String: Any] else {
+        guard let dic = snapShot.value as? [String: Any] else {
             return nil
         }
         
@@ -68,22 +42,40 @@ class MappingHelper: NSObject {
         return Member(name: name, id: id)
     }
     
-    class func mapMembers(from memberDic: Any?) -> [Member] {
+    class func mapChat(from snapShot: DataSnapshot) -> Chat? {
         
-        guard let memberDic = memberDic as? [[String: Any]] else {
-            return []
+        guard let dic = snapShot.value as? [String: Any],
+            let name = dic[Constants.ChatFields.name] as? String else {
+                return nil
         }
         
-        var members = [Member]()
+        return Chat(name: name, id: snapShot.key, messages: [], members: [])
+    }
+    
+    // MARK: - Helper
+    
+    private class func mapMessage(from dic: [String: Any], id: String) -> Message? {
         
-        for dic in memberDic {
+        guard let sender = dic[Constants.MessageFields.sender] as? String,
+            let text = dic[Constants.MessageFields.text] as? String else {
+                return nil
+        }
+        
+        return Message(sender: sender, id: id, text: text)
+    }
+    
+    private class func mapMessages(from messagesDic: [String: [String: String]]) -> [Message] {
+        
+        var messages = [Message]()
+        
+        for dic in messagesDic {
             
-            guard let member = MappingHelper.mapMember(from: dic) else {
+            guard let message = MappingHelper.mapMessage(from: dic.value, id: dic.key) else {
                 continue
             }
-            members.append(member)
+            messages.append(message)
         }
         
-        return members
+        return messages
     }
 }

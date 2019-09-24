@@ -15,3 +15,14 @@ struct Chat {
     let messages: [Message]
     let members: [Member]
 }
+
+extension Chat: DatabaseRepresantable {
+    
+    var dictionary: [String : Any] {
+        return [
+            Constants.ChatFields.name: name,
+            Constants.ChatFields.messages: messages,
+            Constants.ChatFields.members: members
+        ]
+    }
+}

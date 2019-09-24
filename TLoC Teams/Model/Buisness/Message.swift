@@ -11,7 +11,17 @@ import Foundation
 struct Message {
     
 //    let date: String
-    let name: String
+    let sender: String
     let id: String
     let text: String
+}
+
+extension Message: DatabaseRepresantable {
+    
+    var dictionary: [String : Any] {
+        return [
+            Constants.MessageFields.sender: sender,
+            Constants.MessageFields.text: text
+        ]
+    }
 }

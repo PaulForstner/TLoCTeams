@@ -13,3 +13,12 @@ struct Member {
     let name: String
     let id: String
 }
+
+extension Member: DatabaseRepresantable {
+    
+    var dictionary: [String : Any] {
+        return [
+            Constants.MemberFields.name: name
+        ]
+    }
+}

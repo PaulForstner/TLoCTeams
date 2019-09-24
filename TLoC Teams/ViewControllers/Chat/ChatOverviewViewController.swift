@@ -19,15 +19,17 @@ final class ChatOverviewViewController: UIViewController {
     
     private lazy var dataSource: ChatOverviewDataSource = {
         return ChatOverviewDataSource(didSelectHandler: { [weak self] (item) in
-            self?.showChat(item)
+            
+            let vc = ChatViewController.makeFromStoryboard(chat: item)
+            self?.navigationController?.pushViewController(vc, animated: true)
         }, updateHandler: { [weak self] in
             self?.tableView.reloadData()
         })
     }()
     // MARK: - Properties
     
-    private var chatReference: DatabaseReference?
-    private var chatHandler: DatabaseHandle?
+    private var chatsReference: DatabaseReference?
+    private var chatsHandler: DatabaseHandle?
     
     // MARK: - Life cycle
     
@@ -39,22 +41,29 @@ final class ChatOverviewViewController: UIViewController {
         setupUI()
     }
     
+    deinit {
+        guard let chatHandler = self.chatsHandler else {
+            return
+        }
+        
+        chatsReference?.removeObserver(withHandle: chatHandler)
+    }
     // MARK: - Setup
     
     private func setupUI() {
      
+        title = "Chats"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createChatRoom))
         addButton.tintColor = ColorName.green.color
         navigationItem.rightBarButtonItem = addButton
-        
     }
     
     private func setupDatabase() {
-        chatReference = Database.database().reference().child("chats")
+        chatsReference = Database.database().reference().child("chats")
         
-        chatHandler = chatReference?.observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
+        chatsHandler = chatsReference?.observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
             
-            guard let chat = MappingHelper.mapChat(from: snapshot.value, id: snapshot.key) else {
+            guard let chat = MappingHelper.mapChat(from: snapshot) else {
                 return
             }
             
@@ -83,11 +92,7 @@ final class ChatOverviewViewController: UIViewController {
         let data: [String: Any] = ["name": chatName,
                                    "members": [:],
                                    "messages": [:]]
-        chatReference?.childByAutoId().setValue(data)
-    }
-    
-    private func showChat(_ chat: Chat) {
-        
+        chatsReference?.childByAutoId().setValue(data)
     }
 }
 

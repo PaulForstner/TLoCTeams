@@ -14,6 +14,11 @@ final class ChatViewController: UIViewController {
     // MARK: - IBOutlet
     
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var textFieldContainerView: UIView!
+    @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private weak var sendButton: UIButton!
+    @IBOutlet private weak var sendExtraButton: UIButton!
+    @IBOutlet private weak var textFieldContainerViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Lazy
     
@@ -27,9 +32,10 @@ final class ChatViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var displayName = "Anonymous"
-    private var ref: DatabaseReference!
-    fileprivate var _refHandle: DatabaseHandle!
+    private var chat: Chat?
+    private var chatReference: DatabaseReference?
+    private var messagesHandler: DatabaseHandle?
+    private var memberHandler: DatabaseHandle?
     
     // MARK: - Life cycle
     
@@ -38,45 +44,65 @@ final class ChatViewController: UIViewController {
         
         dataSource.configure(tableView: tableView)
         setupDatabase()
-        
-        
-        let data = [Constants.MessageFields.text: "test"]
-        sendMessage(data: data)
     }
     
     deinit {
-        ref.child("messages").removeObserver(withHandle: _refHandle)
+        guard let messagesHandler = self.messagesHandler else {
+            return
+        }
+        
+        chatReference?.removeObserver(withHandle: messagesHandler)
     }
     
     // MARK: - Setup
     
     private func setupUI() {
         
+        sendButton.isEnabled = false
     }
     
     private func setupDatabase() {
-        ref = Database.database().reference()
         
-        _refHandle = ref.child("messages").observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
+        guard let chat = self.chat else {
+            return
+        }
+        
+        chatReference = Database.database().reference().child("chats").child(chat.id)
+        
+        messagesHandler = chatReference?.child(Constants.ChatFields.messages).observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
             
-            guard let message = MappingHelper.mapMessage(from: snapshot.value) else {
+            guard let message = MappingHelper.mapMessage(from: snapshot) else {
                 return
             }
             self?.dataSource.append(message)
+            self?.tableView.reloadData()
 //                        self?.tableView.insertRows(at: [IndexPath(row: self?.messages.count-1, section: 0)], with: .automatic)
             self?.scrollToBottomMessage()
         }
     }
     
+    // MARK: - IBActions
+    
+    @IBAction func textFieldDidChanged(_ sender: Any) {
+        sendButton.isEnabled = textField.text?.isEmpty == false
+    }
+    
+    @IBAction func sendAction(_ sender: Any) {
+        
+        guard let text = textField.text else {
+            return
+        }
+        
+        let message = Message(sender: "Test", id: "", text: text)
+        chatReference?.child(Constants.ChatFields.messages).childByAutoId().setValue(message.dictionary)
+    }
+    
+    @IBAction func sendExtraAction(_ sender: Any) {
+        
+    }
+    
     // MARK: - Helper
     
-    private func sendMessage(data: [String: String]) {
-        
-        var mdata = data
-        // add name to message and then data to firebase database
-        mdata[Constants.MessageFields.name] = displayName
-        ref.child("messages").childByAutoId().setValue(mdata)
-    }
     
     private func scrollToBottomMessage() {
 //        if messages.count == 0 { return }
@@ -85,11 +111,20 @@ final class ChatViewController: UIViewController {
     }
 }
 
+// MARK: - 
+
 // MARK: - StoryboardInitializable
 
 extension ChatViewController: StoryboardInitializable {
     
     static func makeFromStoryboard() -> ChatViewController {
         return StoryboardScene.Main.chatViewController.instantiate()
+    }
+    
+    static func makeFromStoryboard(chat: Chat) -> ChatViewController {
+        
+        let vc = StoryboardScene.Main.chatViewController.instantiate()
+        vc.chat = chat
+        return vc
     }
 }

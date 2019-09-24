@@ -67,13 +67,10 @@ final class LoginViewController: UIViewController {
             if let e = error {
                 print("Error saving channel: \(e.localizedDescription)")
             } else {
-                LoginViewController.userId = result?.user.uid
                 self?.showTabbar()
             }
         }
     }
-    
-    static var userId: String?
     
     @IBAction func forgotPasswordPressed(_ sender: Any) {
         showInputView(with: .forgotPassword)
