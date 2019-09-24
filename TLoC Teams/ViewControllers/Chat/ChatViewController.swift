@@ -58,6 +58,7 @@ final class ChatViewController: UIViewController {
     
     private func setupUI() {
         
+        hidesBottomBarWhenPushed = true
         sendButton.isEnabled = false
     }
     

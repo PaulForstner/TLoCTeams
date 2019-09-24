@@ -281,7 +281,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEh-uc-faK">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="658"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="598"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcY-sh-LFq">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="192"/>
@@ -322,13 +322,6 @@
                                                     <action selector="loginPressed:" destination="mpV-tO-N5Z" eventType="touchUpInside" id="4Hl-zd-otf"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgA-sC-Ehg" customClass="BaseButton" customModule="TLoC_Teams" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="556" width="382" height="50"/>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="anonymousLoginPressed:" destination="mpV-tO-N5Z" eventType="touchUpInside" id="7KC-I6-MrE"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9Z-xL-ajv">
                                                 <rect key="frame" x="352" y="520" width="46" height="30"/>
                                                 <state key="normal" title="Button"/>
@@ -337,7 +330,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fpK-gi-5fv">
-                                                <rect key="frame" x="352" y="612" width="46" height="30"/>
+                                                <rect key="frame" x="352" y="552" width="46" height="30"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
                                                     <action selector="registerPressed:" destination="mpV-tO-N5Z" eventType="touchUpInside" id="r53-Uk-BEw"/>
@@ -348,9 +341,8 @@
                                         <constraints>
                                             <constraint firstItem="RLE-Oz-wig" firstAttribute="leading" secondItem="iEh-uc-faK" secondAttribute="leading" id="2Ud-Nt-rjK"/>
                                             <constraint firstAttribute="trailing" secondItem="M9Z-xL-ajv" secondAttribute="trailing" constant="16" id="3He-19-JxZ"/>
-                                            <constraint firstItem="cgA-sC-Ehg" firstAttribute="trailing" secondItem="d75-Gz-cEd" secondAttribute="trailing" id="AJG-yF-HCM"/>
-                                            <constraint firstItem="cgA-sC-Ehg" firstAttribute="top" secondItem="M9Z-xL-ajv" secondAttribute="bottom" constant="6" id="DTR-Ng-UNV"/>
                                             <constraint firstItem="M9Z-xL-ajv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iEh-uc-faK" secondAttribute="leading" constant="16" id="Fjs-vq-CWO"/>
+                                            <constraint firstItem="fpK-gi-5fv" firstAttribute="top" secondItem="M9Z-xL-ajv" secondAttribute="bottom" constant="2" id="GR0-Fd-YXA"/>
                                             <constraint firstItem="fpK-gi-5fv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iEh-uc-faK" secondAttribute="leading" constant="16" id="Gwr-2Y-Hkl"/>
                                             <constraint firstItem="ecl-dB-uuj" firstAttribute="top" secondItem="RLE-Oz-wig" secondAttribute="bottom" constant="8" id="Nlf-Vl-Ce0"/>
                                             <constraint firstItem="mcY-sh-LFq" firstAttribute="leading" secondItem="iEh-uc-faK" secondAttribute="leading" id="Svu-cq-JTV"/>
@@ -364,11 +356,8 @@
                                             <constraint firstAttribute="bottom" secondItem="fpK-gi-5fv" secondAttribute="bottom" constant="16" id="hdZ-SQ-12x"/>
                                             <constraint firstAttribute="trailing" secondItem="RLE-Oz-wig" secondAttribute="trailing" id="l4r-2X-Kji"/>
                                             <constraint firstItem="d75-Gz-cEd" firstAttribute="leading" secondItem="iEh-uc-faK" secondAttribute="leading" constant="16" id="l6n-ps-zkL"/>
-                                            <constraint firstItem="cgA-sC-Ehg" firstAttribute="leading" secondItem="d75-Gz-cEd" secondAttribute="leading" id="lDx-Ti-RZq"/>
                                             <constraint firstAttribute="trailing" secondItem="mcY-sh-LFq" secondAttribute="trailing" id="mLW-HY-5SH"/>
-                                            <constraint firstItem="fpK-gi-5fv" firstAttribute="top" secondItem="cgA-sC-Ehg" secondAttribute="bottom" constant="6" id="sY3-fC-H5h"/>
                                             <constraint firstAttribute="trailing" secondItem="d75-Gz-cEd" secondAttribute="trailing" constant="16" id="uup-uX-gCq"/>
-                                            <constraint firstItem="cgA-sC-Ehg" firstAttribute="height" secondItem="d75-Gz-cEd" secondAttribute="height" id="yWF-yy-adh"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -392,7 +381,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Q6Q-Gv-pmU"/>
                     <connections>
-                        <outlet property="anonymousLoginButton" destination="cgA-sC-Ehg" id="XvE-km-pi0"/>
                         <outlet property="emailInputView" destination="RLE-Oz-wig" id="XUr-hN-iqn"/>
                         <outlet property="forgotPasswordButton" destination="M9Z-xL-ajv" id="vnn-VZ-gFQ"/>
                         <outlet property="loginButton" destination="d75-Gz-cEd" id="zDo-fz-Ney"/>
@@ -429,7 +417,7 @@
         <scene sceneID="Rca-OY-t3G">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eV0-Ul-sUX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chat" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="chats" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2W9-B7-pCa">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -448,7 +436,7 @@
         <scene sceneID="ERZ-oY-gpg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kma-zw-7hS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Events" image="events" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IdJ-pw-YNg">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -467,7 +455,7 @@
         <scene sceneID="CAd-s5-xeR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Oml-cj-Mv0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="first" id="Uti-Hp-af5"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="Uti-Hp-af5"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1tL-Ph-wsr">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -502,7 +490,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="chats" width="50" height="50"/>
+        <image name="events" width="50" height="50"/>
+        <image name="settings" width="50" height="50"/>
     </resources>
 </document>

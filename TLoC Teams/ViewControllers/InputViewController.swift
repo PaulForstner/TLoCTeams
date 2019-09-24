@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
-import FirebaseFirestore
 
 final class InputViewController: UIViewController {
     
@@ -125,11 +122,12 @@ final class InputViewController: UIViewController {
             return
         }
         
-        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+        UserService.sendPasswordReset(to: email) { (error) in
             
-            if let e = error {
-                print("Error saving channel: \(e.localizedDescription)")
+            guard let e = error else {
+                return
             }
+            print("Error saving channel: \(e.localizedDescription)")
         }
     }
     
@@ -141,20 +139,13 @@ final class InputViewController: UIViewController {
                 return
         }
         
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (result, error) in
+        UserService.createUser(with: email, username: username, password: password) { [weak self] (error) in
             
-            guard let id = result?.user.uid else {
-                return
+            if let e = error {
+                print("Register error: \(e.localizedDescription)")
+            } else {
+                self?.showTabbar()
             }
-            let db = Firestore.firestore()
-            let data = [Constants.UserFields.name: username]
-            db.collection("users").addDocument(data: [id: data], completion: { (error) in
-                
-                if let e = error {
-                    print("Error saving channel: \(e.localizedDescription)")
-                }
-            })
-            self?.showTabbar()
         }
     }
     

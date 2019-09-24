@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 final class LoginViewController: UIViewController {
     
@@ -19,7 +18,6 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var passwordInputView: InputView!
     @IBOutlet private weak var loginButton: BaseButton!
     @IBOutlet private weak var forgotPasswordButton: UIButton!
-    @IBOutlet private weak var anonymousLoginButton: BaseButton!
     @IBOutlet private weak var registerButton: UIButton!
     
     // MARK: - Properties
@@ -41,7 +39,6 @@ final class LoginViewController: UIViewController {
         emailInputView.configure(title: "Email", delegate: textFieldDelegate, icon: nil)
         passwordInputView.configure(title: "Password", delegate: textFieldDelegate, icon: nil, secureTextField: true)
         
-        anonymousLoginButton.setTitle("Anonymous login", for: .normal)
         loginButton.setTitle("Login", for: .normal)
         setupBlackButton(forgotPasswordButton, with: "Forgot password?")
         setupBlackButton(registerButton, with: "Not registered yet? Sign up!")
@@ -62,10 +59,10 @@ final class LoginViewController: UIViewController {
             return
         }
         
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] (result, error) in
+        UserService.login(with: email, password: password) { [weak self] (error) in
             
             if let e = error {
-                print("Error saving channel: \(e.localizedDescription)")
+                print("Login error: \(e.localizedDescription)")
             } else {
                 self?.showTabbar()
             }
@@ -74,10 +71,6 @@ final class LoginViewController: UIViewController {
     
     @IBAction func forgotPasswordPressed(_ sender: Any) {
         showInputView(with: .forgotPassword)
-    }
-    
-    @IBAction func anonymousLoginPressed(_ sender: Any) {
-        
     }
     
     @IBAction func registerPressed(_ sender: Any) {
