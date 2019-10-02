@@ -17,25 +17,27 @@ final class ChatViewController: UIViewController {
     @IBOutlet private weak var textFieldContainerView: UIView!
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var sendButton: UIButton!
-    @IBOutlet private weak var sendExtraButton: UIButton!
+    @IBOutlet private weak var cameraButton: UIButton!
     @IBOutlet private weak var textFieldContainerViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Lazy
     
     private lazy var dataSource: ChatDataSource = {
-        return ChatDataSource(didSelectHandler: { (item) in
+        return ChatDataSource(addMessageHandler: { [weak self] (index) in
             
-        }, updateHandler: { [weak self] in
-            self?.tableView.reloadData()
+            self?.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            self?.scrollToBottomMessage()
         })
     }()
     
     // MARK: - Properties
     
     private var chat: Chat?
+    private var user: User?
     private var chatReference: DatabaseReference?
     private var messagesHandler: DatabaseHandle?
     private var memberHandler: DatabaseHandle?
+    private var dateFormatter = DateFormatter()
     
     // MARK: - Life cycle
     
@@ -44,6 +46,8 @@ final class ChatViewController: UIViewController {
         
         dataSource.configure(tableView: tableView)
         setupDatabase()
+        setupUI()
+        setupUser()
     }
     
     deinit {
@@ -54,12 +58,37 @@ final class ChatViewController: UIViewController {
         chatReference?.removeObserver(withHandle: messagesHandler)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addObserver()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        removeObserver()
+    }
+    
     // MARK: - Setup
     
     private func setupUI() {
         
-        hidesBottomBarWhenPushed = true
         sendButton.isEnabled = false
+        sendButton.setImage(Asset.send.image, for: .normal)
+        sendButton.tintColor = ColorName.green.color
+        cameraButton.setImage(Asset.camera.image, for: .normal)
+        cameraButton.tintColor = ColorName.green.color
+        
+        textField.delegate = self
+        
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        
+        let titleButton = UIButton(type: .system)
+        titleButton.setTitle(chat?.name, for: .normal)
+        titleButton.addTarget(self, action: #selector(showDetail), for: .touchUpInside)
+        navigationItem.titleView = titleButton
     }
     
     private func setupDatabase() {
@@ -76,9 +105,55 @@ final class ChatViewController: UIViewController {
                 return
             }
             self?.dataSource.append(message)
-            self?.tableView.reloadData()
-//                        self?.tableView.insertRows(at: [IndexPath(row: self?.messages.count-1, section: 0)], with: .automatic)
-            self?.scrollToBottomMessage()
+        }
+    }
+    
+    private func setupUser() {
+        UserService.getCurrentUser(completion: { [weak self] (user) in
+            self?.user = user
+        })
+    }
+    
+    // MARK: - Keyboard
+    
+    private func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        
+        guard let userInfo = notification.userInfo,
+            var keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let animationDurarion = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
+                return
+        }
+        
+        keyboardFrame = view.convert(keyboardFrame, from: nil)
+        
+        UIView.animate(withDuration: animationDurarion) {
+            
+            self.textFieldContainerViewBottomConstraint.constant = -keyboardFrame.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        
+        guard let userInfo = notification.userInfo,
+            let animationDurarion = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
+                return
+        }
+
+        UIView.animate(withDuration: animationDurarion) {
+            
+            self.textFieldContainerViewBottomConstraint.constant = 0
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -94,8 +169,7 @@ final class ChatViewController: UIViewController {
             return
         }
         
-        let message = Message(sender: "Test", id: "", text: text)
-        chatReference?.child(Constants.ChatFields.messages).childByAutoId().setValue(message.dictionary)
+        send(message: text)
     }
     
     @IBAction func sendExtraAction(_ sender: Any) {
@@ -104,15 +178,40 @@ final class ChatViewController: UIViewController {
     
     // MARK: - Helper
     
+    @objc private func showDetail() {
+        
+        guard let chat = chat else {
+            return
+        }
+        
+        let vc = ChatDetailViewController.makeFromStoryboard(with: chat)
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     private func scrollToBottomMessage() {
-//        if messages.count == 0 { return }
-//        let bottomMessageIndex = IndexPath(row: tableView.numberOfRows(inSection: 0) - 1, section: 0)
-//        tableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
+
+        let rows = tableView.numberOfRows(inSection: 0)
+        
+        guard rows > 0 else {
+            return
+        }
+        
+        let lastIndex = IndexPath(row: rows - 1, section: 0)
+        tableView.scrollToRow(at: lastIndex, at: .bottom, animated: true)
+    }
+    
+    private func send(message: String) {
+        
+        guard let user = user, let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        let message = Message(date: dateFormatter.string(from: Date()), sender: user.name, senderId: userId, id: "", text: message)
+        chatReference?.child(Constants.ChatFields.messages).childByAutoId().setValue(message.dictionary)
+        textField.text = ""
+        sendButton.isEnabled = false
     }
 }
-
-// MARK: - 
 
 // MARK: - StoryboardInitializable
 
@@ -127,5 +226,16 @@ extension ChatViewController: StoryboardInitializable {
         let vc = StoryboardScene.Main.chatViewController.instantiate()
         vc.chat = chat
         return vc
+    }
+}
+
+// MARK: - Extension
+
+extension ChatViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
     }
 }

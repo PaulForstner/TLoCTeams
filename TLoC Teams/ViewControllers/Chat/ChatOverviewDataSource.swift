@@ -39,6 +39,7 @@ class ChatOverviewDataSource: NSObject {
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
+        
         tableView.tableFooterView = UIView()
     }
     

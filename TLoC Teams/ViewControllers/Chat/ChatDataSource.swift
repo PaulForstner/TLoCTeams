@@ -7,40 +7,37 @@
 //
 
 import UIKit
+import Firebase
 
 class ChatDataSource: NSObject {
     
     // MARK: - Constants
     
     let cellIdentifier = Constants.CellIdentifier.messageCell
-    
+    let outgoingCellIdentifier = Constants.CellIdentifier.outgoingMessageCell
     
     // MARK: - Typealias
     
     typealias ModelType = Message
-    typealias DidSelectHandler = (_ item: ModelType) -> Void
-    typealias UpdateHandler = () -> Void
+    typealias AddMessageHandler = (_ index: Int) -> Void
     
     // MARK: - Properties - Handler
     
-    private var didSelectHandler: DidSelectHandler
-    private var updateHandler: UpdateHandler
+    private var addMessageHandler: AddMessageHandler
     
     // MARK: - Properties
     
-    private var dataSource = [ModelType]() {
-        didSet {
-            updateHandler()
-        }
-    }
+    private var dataSource = [ModelType]()
     
     // MAKR: - Public
     
     func configure(tableView: UITableView) {
         
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        tableView.register(UINib(nibName: outgoingCellIdentifier, bundle: nil), forCellReuseIdentifier: outgoingCellIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
     }
     
@@ -49,15 +46,15 @@ class ChatDataSource: NSObject {
     }
     
     func append(_ item: ModelType) {
+        
         dataSource.append(item)
+        addMessageHandler(dataSource.count - 1)
     }
     
     // MARK: - Initializer
     
-    init(didSelectHandler: @escaping DidSelectHandler, updateHandler: @escaping UpdateHandler) {
-        
-        self.didSelectHandler = didSelectHandler
-        self.updateHandler = updateHandler
+    init(addMessageHandler: @escaping AddMessageHandler) {
+        self.addMessageHandler = addMessageHandler
     }
 }
 
@@ -71,13 +68,29 @@ extension ChatDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else {
+        guard let item = dataSource.item(at: indexPath.row) else {
             return UITableViewCell()
         }
         
-        cell.configure(with: dataSource.item(at: indexPath.row))
-        
-        return cell
+        if item.senderId == Auth.auth().currentUser?.uid {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: outgoingCellIdentifier, for: indexPath) as? OutgoingMessageTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.configure(with: dataSource.item(at: indexPath.row))
+            
+            return cell
+        } else {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MessageTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.configure(with: dataSource.item(at: indexPath.row))
+            
+            return cell
+        }
     }
 }
 
@@ -85,11 +98,4 @@ extension ChatDataSource: UITableViewDataSource {
 
 extension ChatDataSource: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard let item = dataSource.item(at: indexPath.row) else {
-            return
-        }
-        didSelectHandler(item)
-    }
 }

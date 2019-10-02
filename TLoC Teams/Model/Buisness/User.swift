@@ -10,6 +10,17 @@ import Foundation
 
 struct User {
     
+    var email: String
     let name: String
-    let id: String
+    let imageUrl: String
+}
+
+extension User: DatabaseRepresantable {
+    
+    var dictionary: [String : Any] {
+        return [
+            Constants.UserFields.name: name,
+            Constants.UserFields.imageUrl: imageUrl
+        ]
+    }
 }

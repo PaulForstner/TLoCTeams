@@ -16,28 +16,61 @@ struct Constants {
         static let SignedIn = "onSignInCompleted"
     }
     
-    // MARK: - MessageFields
+    // MARK: - UserFields
     
     struct UserFields {
         
         static let name = "name"
+        static let imageUrl = "imageUrl"
     }
     
-    // MARK: - MessageFields
+    // MARK: - EventFields
+    
+    struct EventFields {
+        
+        static let name = "name"
+        static let id = "id"
+        static let date = "date"
+        static let imageUrl = "imageUrl"
+        static let game = "game"
+        static let location = "location"
+        static let memberIds = "memberIds"
+    }
+    
+    // MARK: - GameFields
+    
+    struct GameFields {
+        
+        static let name = "name"
+        static let imageUrl = "imageUrl"
+    }
+    
+    // MARK: - LocationFields
+    
+    struct LocationFields {
+        
+        static let name = "name"
+        static let long = "long"
+        static let lat = "lat"
+    }
+    
+    // MARK: - ChatFields
     
     struct ChatFields {
         
         static let name = "name"
         static let id = "id"
+        static let imageUrl = "imageUrl"
         static let messages = "messages"
-        static let members = "members"
     }
     
     // MARK: - MessageFields
     
     struct MessageFields {
         
+        static let date = "date"
         static let sender = "sender"
+        static let senderId = "senderId"
         static let id = "id"
         static let text = "text"
         static let imageUrl = "photoUrl"
@@ -57,23 +90,23 @@ struct Constants {
         
         static let chatCell = "ChatTableViewCell"
         static let messageCell = "MessageTableViewCell"
+        static let outgoingMessageCell = "OutgoingMessageTableViewCell"
     }
 }
 
 struct Alerts {
     
+    static let Ok = "Ok"
+    static let Cancel = "Cancel"
     static let DismissAlert = "Dismiss"
     static let ErrorTitle = "Error occured!"
     static let ErrorMessage = "Something went wrong please try again or restart the app."
     static let WrongInputTitle = "Wrong Input!"
-    static let WrongInputMessage = "The input is wrong, please try again."
     static let WrongCredentialMessage = "The credentials are wrong, please try again."
-    static let WrongUrlTitle = "Wrong URL!"
-    static let WrongUrlMessage = "The url could not be opend."
-    static let NoUrlMessage = "The input is no valid url."
     static let NoLocationFoundTitle = "No location found"
     static let NoLocationFoundMessage = "We could not find any location to your input, please try again."
-    static let AddErrorMessage = "Could not add location."
-    static let LogoutErrorTitle = "Could not log out."
+    static let DeleteAlertTitle = "Delete Account"
+    static let DeleteAlertDescription = "Are you sure you want to delete your account?"
+    static let LogoutErrorDescription = "Could not log out."
 }
 

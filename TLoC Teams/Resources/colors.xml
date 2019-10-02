@@ -5,7 +5,9 @@ GENERATED - DO NOT MODIFY - use StringResGen instead.
 Created by StringResGen.
 -->
 <resources>
+    <color name="lightGreen">#6EDE2A</color>
     <color name="green">#44C224</color>
     <color name="darkGreen">#2B5518</color>
     <color name="gray">#838383</color>
+    <color name="lightGray">#C0C0C0</color>
 </resources>

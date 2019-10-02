@@ -14,16 +14,51 @@ class UserService {
     // MARK: - Typealias
     
     typealias CompletionHandler = (_ error: Error?) -> Void
+    typealias UserCompletionHandler = (_ user: User?) -> Void
     typealias SuccessHandler = (Bool) -> Void
     
     // MARK: - Properties
     
     private static let db = Firestore.firestore()
     
-    // MARK: - Deinit
+    // MARK: - User
     
-    deinit {
+    static func getCurrentUser(completion: @escaping UserCompletionHandler) {
         
+        guard let userId = Auth.auth().currentUser?.uid, let email = Auth.auth().currentUser?.email else {
+            completion(nil)
+            return
+        }
+        
+        db.collection("users").document(userId).getDocument { (snapShot, error) in
+            
+            guard let snapShot = snapShot else {
+                completion(nil)
+                return
+            }
+            
+            var user = MappingHelper.mapUser(from: snapShot)
+            user?.email = email
+            completion(user)
+        }
+    }
+    
+    static func setCurrentUser(_ user: User, completion: @escaping CompletionHandler) {
+        
+        guard let currentUser = Auth.auth().currentUser else {
+            return
+        }
+        
+        if user.email != currentUser.email {
+            currentUser.updateEmail(to: user.email) { (error) in
+                
+                db.collection("users").document(currentUser.uid).setData(user.dictionary)
+                completion(error)
+            }
+        } else {
+            db.collection("users").document(currentUser.uid).setData(user.dictionary)
+            completion(nil)
+        }
     }
     
     static func createUser(with email: String, username: String, password: String, completion: CompletionHandler?) {
@@ -34,13 +69,9 @@ class UserService {
             guard let id = result?.user.uid else {
                 return
             }
-            let data = [Constants.UserFields.name: username]
-            db.collection("users").addDocument(data: [id: data], completion: { (error) in
-                
-                if let e = error {
-                    print("Error saving channel: \(e.localizedDescription)")
-                }
-            })
+            let data = [Constants.UserFields.name: username,
+                        Constants.UserFields.imageUrl: ""]
+            db.collection("users").document(id).setData(data)
         }
     }
     
@@ -55,7 +86,6 @@ class UserService {
         
         do {
             try Auth.auth().signOut()
-            currentUser = nil
             completion?(true)
         } catch {
             completion?(false)
@@ -67,5 +97,13 @@ class UserService {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             completion?(error)
         }
+    }
+    
+    static func deleteUser(completion: CompletionHandler?) {
+        
+        Auth.auth().currentUser?.delete(completion: { (error) in
+            
+            completion?(error)
+        })
     }
 }

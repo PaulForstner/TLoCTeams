@@ -14,18 +14,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        setupAppearance()
         FirebaseApp.configure()
+        
+        if Auth.auth().currentUser != nil {
+            setTabBarToRoot()
+        }
+        
         return true
+    }
+    
+    // MARK: - SetupAppearance
+    
+    private func setupAppearance() {
+        
+        window?.backgroundColor = .white
+        
+        // NavigationBar
+        UINavigationBar.appearance().tintColor = ColorName.green.color
+        
+        // TabBar
+        UITabBar.appearance().tintColor = ColorName.green.color
     }
     
     // MARK: - SetRootViewController
     
     func setLoginToRoot() {
         
-        let vc = LoginViewController.makeFromStoryboard()
+        let vc = StoryboardScene.Main.loginNavigationController.instantiate()
         window?.rootViewController = vc
     }
     

@@ -21,6 +21,7 @@ final class ChatOverviewViewController: UIViewController {
         return ChatOverviewDataSource(didSelectHandler: { [weak self] (item) in
             
             let vc = ChatViewController.makeFromStoryboard(chat: item)
+            vc.hidesBottomBarWhenPushed = true
             self?.navigationController?.pushViewController(vc, animated: true)
         }, updateHandler: { [weak self] in
             self?.tableView.reloadData()
@@ -48,13 +49,13 @@ final class ChatOverviewViewController: UIViewController {
         
         chatsReference?.removeObserver(withHandle: chatHandler)
     }
+    
     // MARK: - Setup
     
     private func setupUI() {
      
         title = "Chats"
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createChatRoom))
-        addButton.tintColor = ColorName.green.color
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateChat))
         navigationItem.rightBarButtonItem = addButton
     }
     
@@ -86,13 +87,11 @@ final class ChatOverviewViewController: UIViewController {
     
     // MARK: - Helper
     
-    @objc private func createChatRoom() {
+    @objc private func showCreateChat() {
         
-        let chatName = "Chat\(tableView.visibleCells.count)"
-        let data: [String: Any] = ["name": chatName,
-                                   "members": [:],
-                                   "messages": [:]]
-        chatsReference?.childByAutoId().setValue(data)
+        let vc = ChatDetailViewController.makeFromStoryboard()
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -12,7 +12,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - IBOutlets
     
-    @IBOutlet private weak var logoContainerView: UIView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var logoImage: UIImageView!
     @IBOutlet private weak var emailInputView: InputView!
     @IBOutlet private weak var passwordInputView: InputView!
@@ -29,19 +29,35 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Login"
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addObserver()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        removeObserver()
     }
 
     // MARK: - Setup
     
     private func setupUI() {
         
-        emailInputView.configure(title: "Email", delegate: textFieldDelegate, icon: nil)
-        passwordInputView.configure(title: "Password", delegate: textFieldDelegate, icon: nil, secureTextField: true)
+        emailInputView.configure(title: "Email", delegate: textFieldDelegate, icon: Asset.email.image, didChanged: textFieldDidChanged)
+        passwordInputView.configure(title: "Password", delegate: textFieldDelegate, icon: Asset.password.image, secureTextField: true, didChanged: textFieldDidChanged)
         
         loginButton.setTitle("Login", for: .normal)
+        loginButton.isEnabled = false
         setupBlackButton(forgotPasswordButton, with: "Forgot password?")
         setupBlackButton(registerButton, with: "Not registered yet? Sign up!")
+        
+        logoImage.image = Asset.tloc.image
     }
     
     private func setupBlackButton(_ button: UIButton, with title: String) {
@@ -51,6 +67,36 @@ final class LoginViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
     }
 
+    // MARK: - Keyboard
+    
+    private func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification){
+        
+        guard let userInfo = notification.userInfo,
+            var keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        
+        keyboardFrame = view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification){
+        scrollView.contentInset = .zero
+    }
+    
     // MARK: - IBActions
     
     @IBAction func loginPressed(_ sender: Any) {
@@ -78,6 +124,10 @@ final class LoginViewController: UIViewController {
     }
     
     // MARK: - Helper
+    
+    private func textFieldDidChanged() {
+        loginButton.isEnabled = emailInputView.isFilled && passwordInputView.isFilled
+    }
     
     private func showTabbar() {
         

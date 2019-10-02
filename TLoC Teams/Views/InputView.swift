@@ -10,17 +10,19 @@ import UIKit
 
 class InputView: BaseView {
 
+    // MARK: - Typealias
+    
+    typealias ChangedHandler = () -> Void
+    
     // MARK: - IBOutlets
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var textField: UITextField!
-    @IBOutlet private weak var textFieldImage: UIImageView! {
-        didSet {
-            textFieldImage.isHidden = textFieldImage.image == nil ? true : false
-        }
-    }
+    @IBOutlet private weak var textFieldImage: UIImageView!
     
     // MARK: - Properties
+    
+    private var didChanged: ChangedHandler?
     
     public var isFilled: Bool {
         get {
@@ -31,6 +33,9 @@ class InputView: BaseView {
     public var text: String? {
         get {
             return textField.text
+        }
+        set {
+            textField.text = newValue
         }
     }
     
@@ -45,14 +50,23 @@ class InputView: BaseView {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
     }
     
+    // MARK: - TextField
+    
+    @IBAction func textFieldDidChanged(_ sender: Any) {
+        didChanged?()
+    }
+    
     // MARK: - Configure
     
-    public func configure(title: String, delegate: UITextFieldDelegate?, icon: UIImage?, secureTextField: Bool = false) {
+    public func configure(title: String, delegate: UITextFieldDelegate?, icon: UIImage?, secureTextField: Bool = false, didChanged: ChangedHandler?) {
         
         textField.placeholder = title
         textField.delegate = delegate
         textField.isSecureTextEntry = secureTextField
-        textFieldImage.image = icon
+        textFieldImage.image = icon?.withRenderingMode(.alwaysTemplate)
+        textFieldImage.isHidden = textFieldImage.image == nil ? true : false
         titleLabel.text = title
+        
+        self.didChanged = didChanged
     }
 }

@@ -22,13 +22,19 @@ internal enum StoryboardScene {
 
     internal static let initialScene = InitialSceneType<UIKit.UINavigationController>(storyboard: Main.self)
 
+    internal static let chatDetailViewController = SceneType<TLoC_Teams.ChatDetailViewController>(storyboard: Main.self, identifier: "ChatDetailViewController")
+
     internal static let chatOverviewViewController = SceneType<TLoC_Teams.ChatOverviewViewController>(storyboard: Main.self, identifier: "ChatOverviewViewController")
 
     internal static let chatViewController = SceneType<TLoC_Teams.ChatViewController>(storyboard: Main.self, identifier: "ChatViewController")
 
+    internal static let createEventViewController = SceneType<TLoC_Teams.CreateEventViewController>(storyboard: Main.self, identifier: "CreateEventViewController")
+
     internal static let eventViewController = SceneType<TLoC_Teams.EventViewController>(storyboard: Main.self, identifier: "EventViewController")
 
     internal static let inputViewController = SceneType<TLoC_Teams.InputViewController>(storyboard: Main.self, identifier: "InputViewController")
+
+    internal static let loginNavigationController = SceneType<UIKit.UINavigationController>(storyboard: Main.self, identifier: "LoginNavigationController")
 
     internal static let loginViewController = SceneType<TLoC_Teams.LoginViewController>(storyboard: Main.self, identifier: "LoginViewController")
 

@@ -11,14 +11,15 @@ import Firebase
 
 class MappingHelper: NSObject {
     
-    class func mapUser(from snapShot: DataSnapshot) -> User? {
+    class func mapUser(from snapShot: DocumentSnapshot) -> User? {
         
-        guard let dic = snapShot.value as? [String: Any],
-            let name = dic[Constants.UserFields.name] as? String else {
+        guard let dic = snapShot.data(),
+            let name = dic[Constants.UserFields.name] as? String,
+            let profileImageUrl = dic[Constants.UserFields.imageUrl] as? String else {
                 return nil
         }
         
-        return User(name: name, id: snapShot.key)
+        return User(email: "", name: name, imageUrl: profileImageUrl)
     }
     
     class func mapMessage(from snapShot: DataSnapshot) -> Message? {
@@ -48,8 +49,9 @@ class MappingHelper: NSObject {
             let name = dic[Constants.ChatFields.name] as? String else {
                 return nil
         }
+        let imageUrl = dic[Constants.ChatFields.imageUrl] as? String
         
-        return Chat(name: name, id: snapShot.key, messages: [], members: [])
+        return Chat(name: name, id: snapShot.key, imageUrl: imageUrl, messages: [])
     }
     
     // MARK: - Helper
@@ -57,11 +59,13 @@ class MappingHelper: NSObject {
     private class func mapMessage(from dic: [String: Any], id: String) -> Message? {
         
         guard let sender = dic[Constants.MessageFields.sender] as? String,
+            let senderId = dic[Constants.MessageFields.senderId] as? String,
+            let date = dic[Constants.MessageFields.date] as? String,
             let text = dic[Constants.MessageFields.text] as? String else {
                 return nil
         }
         
-        return Message(sender: sender, id: id, text: text)
+        return Message(date: date, sender: sender, senderId: senderId, id: id, text: text)
     }
     
     private class func mapMessages(from messagesDic: [String: [String: String]]) -> [Message] {

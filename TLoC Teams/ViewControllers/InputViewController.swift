@@ -12,6 +12,8 @@ final class InputViewController: UIViewController {
     
     // MARK: - IBOutlets
     
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var logoImage: UIImageView!
     @IBOutlet private weak var inputStackView: UIStackView!
     @IBOutlet private weak var confirmButton: BaseButton!
     
@@ -26,14 +28,6 @@ final class InputViewController: UIViewController {
     }()
     
     private lazy var passwordInputView: InputView = {
-        return InputView()
-    }()
-    
-    private lazy var currentPasswordInputView: InputView = {
-        return InputView()
-    }()
-    
-    private lazy var newPasswordInputView: InputView = {
         return InputView()
     }()
     
@@ -54,11 +48,26 @@ final class InputViewController: UIViewController {
         setupInputType()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addObserver()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        removeObserver()
+    }
+    
     // MARK: - Setup
     
     private func setupUI() {
         
         confirmButton.setTitle("Confirm", for: .normal)
+        confirmButton.isEnabled = false
+        
+        logoImage.image = Asset.tloc.image
     }
     
     private func setupInputType() {
@@ -78,11 +87,39 @@ final class InputViewController: UIViewController {
             switch field {
             case .email: configureInputView(emailInputView, with: field)
             case .password: configureInputView(passwordInputView, with: field)
-            case .currentPassword: configureInputView(currentPasswordInputView, with: field)
-            case .newPassword: configureInputView(newPasswordInputView, with: field)
             case .username: configureInputView(usernameInputView, with: field)
             }
         }
+    }
+    
+    // MARK: - Keyboard
+    
+    private func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification){
+        
+        guard let userInfo = notification.userInfo,
+            var keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        
+        keyboardFrame = view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification){
+        scrollView.contentInset = .zero
     }
     
     // MARK: - IBActions
@@ -94,7 +131,6 @@ final class InputViewController: UIViewController {
         }
         
         switch type {
-        case .changePassword: didConfirmChangePassword()
         case .forgotPassword: didConfirmForgotPassword()
         case .register:       didConfirmRegister()
         }
@@ -104,16 +140,20 @@ final class InputViewController: UIViewController {
     
     private func configureInputView(_ inputView: InputView, with field: Field) {
         
-        inputView.configure(title: field.title, delegate: textFieldDelegate, icon: field.icon, secureTextField: field.isSecure)
+        inputView.configure(title: field.title, delegate: textFieldDelegate, icon: field.icon, secureTextField: field.isSecure, didChanged: textFieldDidChanged)
         inputStackView.addArrangedSubview(inputView)
     }
     
-    private func didConfirmChangePassword() {
+    private func textFieldDidChanged() {
         
-        guard currentPasswordInputView.isFilled && newPasswordInputView.isFilled else {
+        guard let inputType = inputType else {
             return
         }
         
+        switch inputType {
+        case .forgotPassword:   confirmButton.isEnabled = emailInputView.isFilled
+        case .register:         confirmButton.isEnabled = emailInputView.isFilled && usernameInputView.isFilled && passwordInputView.isFilled
+        }
     }
     
     private func didConfirmForgotPassword() {
@@ -127,7 +167,7 @@ final class InputViewController: UIViewController {
             guard let e = error else {
                 return
             }
-            print("Error saving channel: \(e.localizedDescription)")
+            print("Error reset password: \(e.localizedDescription)")
         }
     }
     
@@ -189,14 +229,12 @@ extension InputViewController: UITextFieldDelegate {
 // MARK: - Enum
 
 public enum InputType {
-    case changePassword
     case forgotPassword
     case register
     
     var fields: [Field] {
         
         switch self {
-        case .changePassword:    return [.currentPassword, .newPassword]
         case .forgotPassword:   return [.email]
         case .register:         return [.email, .username, .password]
         }
@@ -205,7 +243,6 @@ public enum InputType {
     var title: String {
         
         switch self {
-        case .changePassword:    return "Change Password"
         case .forgotPassword:   return "Forgot Password"
         case .register:         return "Register"
         }
@@ -215,8 +252,6 @@ public enum InputType {
 public enum Field {
     case email
     case password
-    case currentPassword
-    case newPassword
     case username
     
     var title: String {
@@ -224,8 +259,6 @@ public enum Field {
         switch self {
         case .email:            return "Email"
         case .password:         return "Password"
-        case .currentPassword:  return "Current password"
-        case .newPassword:      return "New password"
         case .username:         return "Username"
         }
     }
@@ -233,10 +266,8 @@ public enum Field {
     var icon: UIImage? {
         
         switch self {
-        case .email:            return nil
-        case .password:         return nil
-        case .currentPassword:  return nil
-        case .newPassword:      return nil
+        case .email:            return Asset.email.image
+        case .password:         return Asset.password.image
         case .username:         return nil
         }
     }
@@ -246,8 +277,6 @@ public enum Field {
         switch self {
         case .email:            return false
         case .password:         return true
-        case .currentPassword:  return true
-        case .newPassword:      return true
         case .username:         return false
         }
     }

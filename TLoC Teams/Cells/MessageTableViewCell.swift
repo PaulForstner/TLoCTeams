@@ -12,6 +12,10 @@ class MessageTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
     
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var messageTextLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var senderLabel: UILabel!
     
     // MARK: - Life cycle
     
@@ -25,12 +29,23 @@ class MessageTableViewCell: UITableViewCell {
     
     public func setupUI() {
         
+        selectionStyle = .none
+        
+        containerView.layer.cornerRadius = 12
+        messageTextLabel.font = UIFont.systemFont(ofSize: 16)
+        senderLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        dateLabel.font = UIFont.systemFont(ofSize: 12)
+        dateLabel.textColor = ColorName.gray.color
+        
+        containerView.backgroundColor = ColorName.lightGray.color.withAlphaComponent(0.5)
     }
     
     // MARK: - Configure
     
     public func configure(with item: Message?) {
         
-        textLabel?.text = item?.text
+        messageTextLabel.text = item?.text
+        dateLabel.text = item?.date
+        senderLabel.text = item?.sender
     }
 }
