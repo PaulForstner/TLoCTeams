@@ -11,7 +11,7 @@ import Foundation
 struct Game {
     
     let name: String
-    let imageUrl: String
+    let imageUrl: String?
 }
 
 extension Game: DatabaseRepresantable {
@@ -19,7 +19,7 @@ extension Game: DatabaseRepresantable {
     var dictionary: [String : Any] {
         return [
             Constants.GameFields.name: name,
-            Constants.GameFields.imageUrl: imageUrl
+            Constants.GameFields.imageUrl: imageUrl ?? ""
         ]
     }
 }

@@ -37,7 +37,7 @@ final class ChatViewController: UIViewController {
     private var chatReference: DatabaseReference?
     private var messagesHandler: DatabaseHandle?
     private var memberHandler: DatabaseHandle?
-    private var dateFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
     
     // MARK: - Life cycle
     

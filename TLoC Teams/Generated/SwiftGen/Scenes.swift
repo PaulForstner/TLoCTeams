@@ -32,7 +32,11 @@ internal enum StoryboardScene {
 
     internal static let eventViewController = SceneType<TLoC_Teams.EventViewController>(storyboard: Main.self, identifier: "EventViewController")
 
+    internal static let gameListViewController = SceneType<TLoC_Teams.GameListViewController>(storyboard: Main.self, identifier: "GameListViewController")
+
     internal static let inputViewController = SceneType<TLoC_Teams.InputViewController>(storyboard: Main.self, identifier: "InputViewController")
+
+    internal static let locationViewController = SceneType<TLoC_Teams.LocationViewController>(storyboard: Main.self, identifier: "LocationViewController")
 
     internal static let loginNavigationController = SceneType<UIKit.UINavigationController>(storyboard: Main.self, identifier: "LoginNavigationController")
 

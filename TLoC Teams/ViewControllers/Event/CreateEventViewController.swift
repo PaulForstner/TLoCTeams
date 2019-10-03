@@ -20,14 +20,27 @@ final class CreateEventViewController: UIViewController {
     @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var gameHelperView: UIView!
     @IBOutlet private weak var gameLabel: UILabel!
+    @IBOutlet private weak var clearGameButton: UIButton!
     @IBOutlet private weak var locationHelperView: UIView!
     @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var clearLocationButton: UIButton!
     @IBOutlet private weak var createButton: BaseButton!
     
     // MARK: - Properties
     
-    private var eventReference: DatabaseReference?
     private let textFieldDelegate = TextFieldDelegate()
+    private let dateFormatter = DateFormatter()
+    private var eventReference: DatabaseReference?
+    private var game: Game? {
+        didSet {
+            didSetGame()
+        }
+    }
+    private var location: EventLocation? {
+        didSet {
+            didSetLocation()
+        }
+    }
     
     // MARK: - Life cycle
     
@@ -35,18 +48,72 @@ final class CreateEventViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        setupDatabase()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addObserver()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        removeObserver()
     }
     
     // MARK: - Setup
     
     private func setupUI() {
         
+        createButton.isEnabled = false
         eventNameInputView.configure(title: "Name", delegate: textFieldDelegate, icon: nil, didChanged: textFieldDidChanged)
+        
+        datePicker.minimumDate = Date()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        
+        gameLabel.text = "Select a game"
+        gameHelperView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                   action: #selector(showGameSelection)))
+        clearGameButton.isEnabled = false
+        clearGameButton.tintColor = ColorName.green.color
+        
+        locationLabel.text = "Choose a location"
+        locationHelperView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                       action: #selector(showLocationSelection)))
+        clearLocationButton.isEnabled = false
+        clearLocationButton.tintColor = ColorName.green.color
     }
     
-    private func setupDatabase() {
+    // MARK: - Keyboard
+    
+    private func addObserver() {
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification){
+        
+        guard let userInfo = notification.userInfo,
+            var keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        
+        keyboardFrame = view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification){
+        scrollView.contentInset = .zero
     }
     
     // MARK: - IBAction
@@ -55,21 +122,68 @@ final class CreateEventViewController: UIViewController {
         
     }
     
-    // MARK: - Helper
+    @IBAction func clearGame(_ sender: Any) {
+        game = nil
+    }
     
-    @objc private func create() {
+    @IBAction func clearLocation(_ sender: Any) {
+        location = nil
+    }
+    
+    @IBAction func createAction(_ sender: Any) {
         
         guard let name = eventNameInputView.text else {
             return
         }
         
-//        let chat = Chat(name: name, id: "", imageUrl: "", messages: [])
-//        chatsReference?.childByAutoId().setValue(chat.dictionary)
-//        navigationController?.popViewController(animated: true)
+        let event = Event(name: name,
+                          id: "",
+                          date: dateFormatter.string(from: datePicker.date),
+                          imageUrl: "",
+                          game: game,
+                          location: location,
+                          memberIds: [])
+        Firestore.firestore().collection("events").addDocument(data: event.dictionary) { [weak self] (error) in
+            
+            if error != nil {
+                self?.showAlert(with: Alerts.ErrorTitle, message: Alerts.ErrorMessage)
+            } else {
+                self?.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    // MARK: - Helper
+    
+    @objc private func showGameSelection() {
+        
+        let vc = GameListViewController.makeFromStoryboard { [weak self] (game) in
+            self?.game = game
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func showLocationSelection() {
+        
+        let vc = LocationViewController.makeFromStoryboard { [weak self] (location) in
+            self?.location = location
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func didSetGame() {
+        
+        clearGameButton.isEnabled = game != nil
+        gameLabel.text = game?.name ?? "Select a game"
+    }
+    
+    private func didSetLocation() {
+        
+        clearLocationButton.isEnabled = location != nil
+        locationLabel.text = location?.name ?? "Choose a location"
     }
     
     private func textFieldDidChanged() {
-
         createButton.isEnabled = eventNameInputView.isFilled
     }
 }

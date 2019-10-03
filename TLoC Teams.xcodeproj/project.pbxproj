@@ -21,6 +21,15 @@
 		DA16B83C23412DC800873129 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B83B23412DC800873129 /* Game.swift */; };
 		DA16B83E23412DD700873129 /* EventLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B83D23412DD700873129 /* EventLocation.swift */; };
 		DA16B8422343B85000873129 /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B8412343B84F00873129 /* CreateEventViewController.swift */; };
+		DA16B8442345365E00873129 /* GameListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B8432345365D00873129 /* GameListViewController.swift */; };
+		DA16B84623453C6100873129 /* RAWGEndpointRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B84523453C6100873129 /* RAWGEndpointRouter.swift */; };
+		DA16B84823453C7400873129 /* RAWGNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B84723453C7300873129 /* RAWGNetworkService.swift */; };
+		DA16B84A23453FD100873129 /* GameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B84923453FD100873129 /* GameResponse.swift */; };
+		DA16B84C2345421C00873129 /* RAWGResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B84B2345421C00873129 /* RAWGResponse.swift */; };
+		DA16B84E2345448300873129 /* GameListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B84D2345448200873129 /* GameListDataSource.swift */; };
+		DA16B8512345454E00873129 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B84F2345454E00873129 /* GameTableViewCell.swift */; };
+		DA16B8522345454E00873129 /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA16B8502345454E00873129 /* GameTableViewCell.xib */; };
+		DA16B8542345E05200873129 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B8532345E05100873129 /* LocationViewController.swift */; };
 		DA16FFF72336803A000D5144 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16FFF62336803A000D5144 /* InputViewController.swift */; };
 		DA16FFF9233680AB000D5144 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16FFF8233680AB000D5144 /* TextFieldDelegate.swift */; };
 		DA1827CB23328C5C005A17BB /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1827CA23328C5C005A17BB /* Chat.swift */; };
@@ -101,6 +110,15 @@
 		DA16B83B23412DC800873129 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		DA16B83D23412DD700873129 /* EventLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocation.swift; sourceTree = "<group>"; };
 		DA16B8412343B84F00873129 /* CreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
+		DA16B8432345365D00873129 /* GameListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListViewController.swift; sourceTree = "<group>"; };
+		DA16B84523453C6100873129 /* RAWGEndpointRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGEndpointRouter.swift; sourceTree = "<group>"; };
+		DA16B84723453C7300873129 /* RAWGNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGNetworkService.swift; sourceTree = "<group>"; };
+		DA16B84923453FD100873129 /* GameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResponse.swift; sourceTree = "<group>"; };
+		DA16B84B2345421C00873129 /* RAWGResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGResponse.swift; sourceTree = "<group>"; };
+		DA16B84D2345448200873129 /* GameListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListDataSource.swift; sourceTree = "<group>"; };
+		DA16B84F2345454E00873129 /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
+		DA16B8502345454E00873129 /* GameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
+		DA16B8532345E05100873129 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		DA16FFF62336803A000D5144 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		DA16FFF8233680AB000D5144 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 		DA1827CA23328C5C005A17BB /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -280,6 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				DA1A638F232AC450007908E8 /* NetworkService.swift */,
+				DA16B84523453C6100873129 /* RAWGEndpointRouter.swift */,
+				DA16B84723453C7300873129 /* RAWGNetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -306,8 +326,11 @@
 		DA1A6392232AC450007908E8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				DA1827CE23328CEF005A17BB /* LoginViewController.swift */,
+				DA16B84D2345448200873129 /* GameListDataSource.swift */,
+				DA16B8432345365D00873129 /* GameListViewController.swift */,
 				DA16FFF62336803A000D5144 /* InputViewController.swift */,
+				DA16B8532345E05100873129 /* LocationViewController.swift */,
+				DA1827CE23328CEF005A17BB /* LoginViewController.swift */,
 				DA2770532335846200E35507 /* TabBarViewController.swift */,
 				DA1A63B0232AC827007908E8 /* Chat */,
 				DA1A63B1232AC830007908E8 /* Event */,
@@ -325,6 +348,8 @@
 				DA15FD9C23395EE500EFCEEB /* MessageTableViewCell.xib */,
 				DA2B59DC233D49C70087ABB2 /* OutgoingMessageTableViewCell.swift */,
 				DA2B59DD233D49C70087ABB2 /* OutgoingMessageTableViewCell.xib */,
+				DA16B84F2345454E00873129 /* GameTableViewCell.swift */,
+				DA16B8502345454E00873129 /* GameTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -364,6 +389,8 @@
 		DA1A6399232AC451007908E8 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				DA16B84923453FD100873129 /* GameResponse.swift */,
+				DA16B84B2345421C00873129 /* RAWGResponse.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -576,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA1A63B4232AD1EE007908E8 /* colors.xml in Resources */,
+				DA16B8522345454E00873129 /* GameTableViewCell.xib in Resources */,
 				DA15FD9E23395EE500EFCEEB /* MessageTableViewCell.xib in Resources */,
 				DA15FD942339116D00EFCEEB /* InputView.xib in Resources */,
 				DA5C876323315E2A00ED510D /* ChatTableViewCell.xib in Resources */,
@@ -716,6 +744,8 @@
 				DA7A4830232AD5FE00673BEC /* Scenes.swift in Sources */,
 				DA7A4831232AD5FE00673BEC /* Colors.swift in Sources */,
 				DA16B835233F9A4900873129 /* UIViewController+Alert.swift in Sources */,
+				DA16B8442345365E00873129 /* GameListViewController.swift in Sources */,
+				DA16B84E2345448300873129 /* GameListDataSource.swift in Sources */,
 				DA15FD9D23395EE500EFCEEB /* MessageTableViewCell.swift in Sources */,
 				DA1A634E232AC197007908E8 /* EventViewController.swift in Sources */,
 				DA1827CF23328CEF005A17BB /* LoginViewController.swift in Sources */,
@@ -725,19 +755,24 @@
 				DA1A63A7232AC74A007908E8 /* ChatDataSource.swift in Sources */,
 				DA1A63AB232AC7F4007908E8 /* ChatViewController.swift in Sources */,
 				DA1A634A232AC197007908E8 /* AppDelegate.swift in Sources */,
+				DA16B84A23453FD100873129 /* GameResponse.swift in Sources */,
 				DA5C87652331670400ED510D /* MappingHelper.swift in Sources */,
 				DA16B83E23412DD700873129 /* EventLocation.swift in Sources */,
 				DA2B59DE233D49C70087ABB2 /* OutgoingMessageTableViewCell.swift in Sources */,
 				DA16B8422343B85000873129 /* CreateEventViewController.swift in Sources */,
 				DA1A63A2232AC452007908E8 /* EndpointRouter+URLRequest.swift in Sources */,
+				DA16B8542345E05200873129 /* LocationViewController.swift in Sources */,
 				DA1A639F232AC452007908E8 /* NetworkService.swift in Sources */,
 				DA1A634C232AC197007908E8 /* ChatOverviewViewController.swift in Sources */,
 				DA1A63A1232AC452007908E8 /* Constants.swift in Sources */,
 				DA2B59E1233D52280087ABB2 /* User.swift in Sources */,
+				DA16B8512345454E00873129 /* GameTableViewCell.swift in Sources */,
 				DA1A63A9232AC76D007908E8 /* ChatOverviewDataSource.swift in Sources */,
 				DA1A63AD232AC80A007908E8 /* EventDataSource.swift in Sources */,
 				DA1A63AF232AC820007908E8 /* SettingsViewController.swift in Sources */,
 				DA142078233A810600F23652 /* UserService.swift in Sources */,
+				DA16B84623453C6100873129 /* RAWGEndpointRouter.swift in Sources */,
+				DA16B84C2345421C00873129 /* RAWGResponse.swift in Sources */,
 				DA16B8372341020B00873129 /* Event.swift in Sources */,
 				DA277052233565E400E35507 /* BaseButton.swift in Sources */,
 				DA27704723352C3A00E35507 /* InputView.swift in Sources */,
@@ -749,6 +784,7 @@
 				DA7A4835232AD70E00673BEC /* StoryboardInitializable.swift in Sources */,
 				DA27704E233541EF00E35507 /* UIView+Extension.swift in Sources */,
 				DA14207A233AAC4900F23652 /* Assets.swift in Sources */,
+				DA16B84823453C7400873129 /* RAWGNetworkService.swift in Sources */,
 				DA5C8767233168B000ED510D /* Message.swift in Sources */,
 				DA16B83C23412DC800873129 /* Game.swift in Sources */,
 				DA1A63A3232AC452007908E8 /* Array+Extension.swift in Sources */,

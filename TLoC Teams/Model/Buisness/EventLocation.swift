@@ -7,12 +7,20 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct EventLocation {
     
     let name: String
-    let long: String
-    let lat: String
+    let long: Double
+    let lat: Double
+}
+
+extension EventLocation {
+    
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat, longitude: long)
+    }
 }
 
 extension EventLocation: DatabaseRepresantable {

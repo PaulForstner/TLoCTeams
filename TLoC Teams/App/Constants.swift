@@ -89,6 +89,7 @@ struct Constants {
     struct CellIdentifier {
         
         static let chatCell = "ChatTableViewCell"
+        static let gameCell = "GameTableViewCell"
         static let messageCell = "MessageTableViewCell"
         static let outgoingMessageCell = "OutgoingMessageTableViewCell"
     }
