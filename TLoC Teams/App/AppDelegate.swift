@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupAppearance()
         FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
+        Firestore.firestore().settings.isPersistenceEnabled = true
         
         if Auth.auth().currentUser != nil {
             setTabBarToRoot()

@@ -31,6 +31,7 @@ class ChatTableViewCell: UITableViewCell {
     public func setupUI() {
         
         groupImageView.layer.cornerRadius = groupImageView.frame.height / 2
+        groupImageView.contentMode = .scaleAspectFill
         groupNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         senderLabel.font = UIFont.boldSystemFont(ofSize: 16)
         messageLabel.font = UIFont.systemFont(ofSize: 16)

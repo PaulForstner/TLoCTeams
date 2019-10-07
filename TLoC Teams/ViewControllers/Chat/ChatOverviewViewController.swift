@@ -43,7 +43,7 @@ final class ChatOverviewViewController: UIViewController {
     }
     
     deinit {
-        guard let chatHandler = self.chatsHandler else {
+        guard let chatHandler = chatsHandler else {
             return
         }
         
@@ -61,6 +61,7 @@ final class ChatOverviewViewController: UIViewController {
     
     private func setupDatabase() {
         chatsReference = Database.database().reference().child("chats")
+        chatsReference?.keepSynced(true)
         
         chatsHandler = chatsReference?.observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
             

@@ -12,11 +12,11 @@ class EventDataSource: NSObject {
     
     // MARK: - Constants
     
-    private let cellIdentifier = Constants.CellIdentifier.chatCell
+    private let cellIdentifier = Constants.CellIdentifier.eventCell
     
     // MARK: - Typealias
     
-    typealias ModelType = Chat
+    typealias ModelType = Event
     typealias DidSelectHandler = (_ item: ModelType) -> Void
     typealias UpdateHandler = () -> Void
     
@@ -52,6 +52,19 @@ class EventDataSource: NSObject {
         dataSource.append(item)
     }
     
+    func remove(_ item: ModelType) {
+        dataSource.removeAll(where: { $0.id == item.id})
+    }
+    
+    func update(_ item: ModelType) {
+        
+        guard let index = dataSource.firstIndex(where: { $0.id == item.id}) else {
+            return
+        }
+        dataSource.remove(at: index)
+        dataSource.insert(item, at: index)
+    }
+    
     // MARK: - Initializer
     
     init(didSelectHandler: @escaping DidSelectHandler, updateHandler: @escaping UpdateHandler) {
@@ -71,7 +84,7 @@ extension EventDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ChatTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? EventTableViewCell else {
             return UITableViewCell()
         }
         

@@ -10,6 +10,10 @@ import UIKit
 import Firebase
 
 final class ChatDetailViewController: UIViewController {
+
+    // MARK: - Typealias
+    
+    typealias ClearHandler = () -> Void
     
     // MARK: - IBOutlet
     
@@ -37,6 +41,7 @@ final class ChatDetailViewController: UIViewController {
     
     private var chat: Chat?
     private var chatsReference: DatabaseReference?
+    private var clearHandler: ClearHandler?
     private let textFieldDelegate = TextFieldDelegate()
     
     // MARK: - Life cycle
@@ -67,7 +72,9 @@ final class ChatDetailViewController: UIViewController {
     }
     
     private func setupDatabase() {
+        
         chatsReference = Database.database().reference().child("chats")
+        chatsReference?.keepSynced(true)
     }
     
     // MARK: - IBAction
@@ -111,8 +118,8 @@ final class ChatDetailViewController: UIViewController {
             return
         }
         
-        // TODO: Alert
         chatsReference?.child(chat.id).child(Constants.ChatFields.messages).removeValue()
+        clearHandler?()
     }
     
     private func textFieldDidChanged() {
@@ -121,7 +128,6 @@ final class ChatDetailViewController: UIViewController {
             return
         }
         
-        // TODO: Alert
         createButton.isEnabled = groupNameInputView.isFilled
     }
 }
@@ -134,9 +140,10 @@ extension ChatDetailViewController: StoryboardInitializable {
         return StoryboardScene.Main.chatDetailViewController.instantiate()
     }
     
-    static func makeFromStoryboard(with chat: Chat) -> ChatDetailViewController {
+    static func makeFromStoryboard(with chat: Chat, clearHandler: ClearHandler?) -> ChatDetailViewController {
         
         let vc = StoryboardScene.Main.chatDetailViewController.instantiate()
+        vc.clearHandler = clearHandler
         vc.chat = chat
         return vc
     }

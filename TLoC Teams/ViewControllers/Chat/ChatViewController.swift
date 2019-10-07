@@ -36,10 +36,22 @@ final class ChatViewController: UIViewController {
     private var user: User?
     private var chatReference: DatabaseReference?
     private var messagesHandler: DatabaseHandle?
+    private var clearMessagesHandler: DatabaseHandle?
     private var memberHandler: DatabaseHandle?
     private let dateFormatter = DateFormatter()
     
     // MARK: - Life cycle
+    
+    deinit {
+        
+        if let messagesHandler = messagesHandler  {
+            chatReference?.removeObserver(withHandle: messagesHandler)
+        }
+        
+        if let clearMessagesHandler = clearMessagesHandler  {
+            chatReference?.removeObserver(withHandle: clearMessagesHandler)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,18 +62,11 @@ final class ChatViewController: UIViewController {
         setupUser()
     }
     
-    deinit {
-        guard let messagesHandler = self.messagesHandler else {
-            return
-        }
-        
-        chatReference?.removeObserver(withHandle: messagesHandler)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         addObserver()
+        tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -98,6 +103,7 @@ final class ChatViewController: UIViewController {
         }
         
         chatReference = Database.database().reference().child("chats").child(chat.id)
+        chatReference?.keepSynced(true)
         
         messagesHandler = chatReference?.child(Constants.ChatFields.messages).observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
             
@@ -184,7 +190,10 @@ final class ChatViewController: UIViewController {
             return
         }
         
-        let vc = ChatDetailViewController.makeFromStoryboard(with: chat)
+        view.endEditing(true)
+        let vc = ChatDetailViewController.makeFromStoryboard(with: chat, clearHandler: { [weak self] in
+            self?.dataSource.set([])
+        })
         navigationController?.pushViewController(vc, animated: true)
     }
     

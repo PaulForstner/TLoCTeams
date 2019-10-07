@@ -30,6 +30,9 @@
 		DA16B8512345454E00873129 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B84F2345454E00873129 /* GameTableViewCell.swift */; };
 		DA16B8522345454E00873129 /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA16B8502345454E00873129 /* GameTableViewCell.xib */; };
 		DA16B8542345E05200873129 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B8532345E05100873129 /* LocationViewController.swift */; };
+		DA16B8572346402D00873129 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B8552346402D00873129 /* EventTableViewCell.swift */; };
+		DA16B8582346402D00873129 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA16B8562346402D00873129 /* EventTableViewCell.xib */; };
+		DA16B85A2348ACB200873129 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B8592348ACB200873129 /* StorageService.swift */; };
 		DA16FFF72336803A000D5144 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16FFF62336803A000D5144 /* InputViewController.swift */; };
 		DA16FFF9233680AB000D5144 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16FFF8233680AB000D5144 /* TextFieldDelegate.swift */; };
 		DA1827CB23328C5C005A17BB /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1827CA23328C5C005A17BB /* Chat.swift */; };
@@ -119,6 +122,9 @@
 		DA16B84F2345454E00873129 /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		DA16B8502345454E00873129 /* GameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
 		DA16B8532345E05100873129 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		DA16B8552346402D00873129 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		DA16B8562346402D00873129 /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
+		DA16B8592348ACB200873129 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DA16FFF62336803A000D5144 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		DA16FFF8233680AB000D5144 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 		DA1827CA23328C5C005A17BB /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -290,6 +296,7 @@
 			children = (
 				DA1A638E232AC450007908E8 /* Network */,
 				DA142077233A810600F23652 /* UserService.swift */,
+				DA16B8592348ACB200873129 /* StorageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -350,6 +357,8 @@
 				DA2B59DD233D49C70087ABB2 /* OutgoingMessageTableViewCell.xib */,
 				DA16B84F2345454E00873129 /* GameTableViewCell.swift */,
 				DA16B8502345454E00873129 /* GameTableViewCell.xib */,
+				DA16B8552346402D00873129 /* EventTableViewCell.swift */,
+				DA16B8562346402D00873129 /* EventTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -602,6 +611,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA16B8582346402D00873129 /* EventTableViewCell.xib in Resources */,
 				DA1A63B4232AD1EE007908E8 /* colors.xml in Resources */,
 				DA16B8522345454E00873129 /* GameTableViewCell.xib in Resources */,
 				DA15FD9E23395EE500EFCEEB /* MessageTableViewCell.xib in Resources */,
@@ -744,6 +754,7 @@
 				DA7A4830232AD5FE00673BEC /* Scenes.swift in Sources */,
 				DA7A4831232AD5FE00673BEC /* Colors.swift in Sources */,
 				DA16B835233F9A4900873129 /* UIViewController+Alert.swift in Sources */,
+				DA16B8572346402D00873129 /* EventTableViewCell.swift in Sources */,
 				DA16B8442345365E00873129 /* GameListViewController.swift in Sources */,
 				DA16B84E2345448300873129 /* GameListDataSource.swift in Sources */,
 				DA15FD9D23395EE500EFCEEB /* MessageTableViewCell.swift in Sources */,
@@ -754,6 +765,7 @@
 				DA7A4832232AD5FE00673BEC /* Segues.swift in Sources */,
 				DA1A63A7232AC74A007908E8 /* ChatDataSource.swift in Sources */,
 				DA1A63AB232AC7F4007908E8 /* ChatViewController.swift in Sources */,
+				DA16B85A2348ACB200873129 /* StorageService.swift in Sources */,
 				DA1A634A232AC197007908E8 /* AppDelegate.swift in Sources */,
 				DA16B84A23453FD100873129 /* GameResponse.swift in Sources */,
 				DA5C87652331670400ED510D /* MappingHelper.swift in Sources */,

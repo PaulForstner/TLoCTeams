@@ -30,7 +30,6 @@ final class CreateEventViewController: UIViewController {
     
     private let textFieldDelegate = TextFieldDelegate()
     private let dateFormatter = DateFormatter()
-    private var eventReference: DatabaseReference?
     private var game: Game? {
         didSet {
             didSetGame()
@@ -132,7 +131,7 @@ final class CreateEventViewController: UIViewController {
     
     @IBAction func createAction(_ sender: Any) {
         
-        guard let name = eventNameInputView.text else {
+        guard let name = eventNameInputView.text, let userId = Auth.auth().currentUser?.uid else {
             return
         }
         
@@ -142,7 +141,7 @@ final class CreateEventViewController: UIViewController {
                           imageUrl: "",
                           game: game,
                           location: location,
-                          memberIds: [])
+                          memberIds: [userId])
         Firestore.firestore().collection("events").addDocument(data: event.dictionary) { [weak self] (error) in
             
             if error != nil {

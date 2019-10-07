@@ -92,6 +92,7 @@ struct Constants {
         static let gameCell = "GameTableViewCell"
         static let messageCell = "MessageTableViewCell"
         static let outgoingMessageCell = "OutgoingMessageTableViewCell"
+        static let eventCell = "EventTableViewCell"
     }
 }
 
