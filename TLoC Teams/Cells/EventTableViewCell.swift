@@ -45,9 +45,6 @@ class EventTableViewCell: UITableViewCell {
         dateLabel.font = UIFont.systemFont(ofSize: 14)
         
         selectionStyle = .none
-        
-        #warning("REMOVE")
-        eventImageView.image = Asset.paul.image
     }
     
     // MARK: - Configure
@@ -66,16 +63,9 @@ class EventTableViewCell: UITableViewCell {
             locationLabel.text = location.name
             stackView.addArrangedSubview(locationLabel)
         }
-        
-        setImage(with: item?.imageUrl)
     }
     
     // MARK: - Helper
-    
-    private func setImage(with urlString: String?) {
-        
-        
-    }
     
     private func createLabel() -> UILabel {
         
@@ -83,5 +73,14 @@ class EventTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = ColorName.gray.color
         return label
+    }
+}
+
+// MARK: - ImageLoadable
+
+extension EventTableViewCell: ImageLoadable {
+    
+    var imageLoadableView: UIImageView {
+        return eventImageView
     }
 }

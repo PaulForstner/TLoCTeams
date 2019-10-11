@@ -20,13 +20,14 @@ class GameTableViewCell: UITableViewCell {
     public func configure(with item: Game?) {
         
         gameNameLabel.text = item?.name
-        setImage(with: item?.imageUrl)
     }
+}
+
+// MARK: - ImageLoadable
+
+extension GameTableViewCell: ImageLoadable {
     
-    // MARK: - Helper
-    
-    private func setImage(with urlString: String?) {
-        
-        
+    var imageLoadableView: UIImageView {
+        return gameImageView
     }
 }

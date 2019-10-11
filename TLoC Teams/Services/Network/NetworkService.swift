@@ -15,13 +15,13 @@ enum NetworkError: Error {
 
 class NetworkService: NSObject {
     
-    class func request<T: Decodable, U: EndpointRouter>(router: U, responseType: T.Type, completion: @escaping (T?, Error?) -> Void) {
+    class func request<T: Decodable, U: EndpointRouter>(router: U, responseType: T.Type, completion: @escaping (T?, Error?) -> Void) -> URLSessionTask?  {
         
         guard let urlRequest = router.urlRequest else {
-            return
+            return nil
         }
         
-        AF.request(urlRequest).validate(statusCode: 200..<300).responseData { (response) in
+        let request = Alamofire.request(urlRequest).validate(statusCode: 200..<300).responseData { (response) in
             
             switch response.result {
             case .success(let data):
@@ -37,5 +37,7 @@ class NetworkService: NSObject {
                 completion(nil, error)
             }
         }
+        
+        return request.task
     }
 }

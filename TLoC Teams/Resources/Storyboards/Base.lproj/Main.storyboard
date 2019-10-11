@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HcC-CH-84r">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HcC-CH-84r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -151,8 +149,7 @@
                                 <rect key="frame" x="0.0" y="824" width="414" height="38"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dQr-G3-KfQ">
-                                        <rect key="frame" x="64" y="4" width="286" height="30"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="64" y="2" width="286" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -303,9 +300,6 @@
                                                     </view>
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="5ka-6j-DrA">
                                                         <rect key="frame" x="0.0" y="400" width="382" height="216"/>
-                                                        <date key="date" timeIntervalSinceReferenceDate="591729326.57905805">
-                                                            <!--2019-10-02 17:15:26 +0000-->
-                                                        </date>
                                                     </datePicker>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HWd-fc-BA2" customClass="SeparatorView" customModule="TLoC_Teams" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="632" width="382" height="1"/>
@@ -594,18 +588,18 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ggh-eF-440">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="428"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="460"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8rV-2u-aQc">
-                                                <rect key="frame" x="16" y="32" width="382" height="372"/>
+                                                <rect key="frame" x="16" y="32" width="382" height="404"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTB-7l-k0C">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="128"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="160"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9d5-UY-rgH">
-                                                                <rect key="frame" x="127" y="0.0" width="128" height="128"/>
+                                                                <rect key="frame" x="111" y="0.0" width="160" height="160"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="128" id="EDU-1y-ERd"/>
+                                                                    <constraint firstAttribute="width" constant="160" id="EDU-1y-ERd"/>
                                                                     <constraint firstAttribute="width" secondItem="9d5-UY-rgH" secondAttribute="height" multiplier="1:1" id="SuH-qq-ROa"/>
                                                                 </constraints>
                                                             </imageView>
@@ -618,21 +612,21 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hj1-je-ycO" customClass="InputView" customModule="TLoC_Teams" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="144" width="382" height="50"/>
+                                                        <rect key="frame" x="0.0" y="176" width="382" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" priority="250" constant="50" id="HtI-cT-IEx"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3li-qM-ELV" customClass="InputView" customModule="TLoC_Teams" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="210" width="382" height="50"/>
+                                                        <rect key="frame" x="0.0" y="242" width="382" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" priority="250" constant="50" id="Uaw-0c-FSB"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0b-2s-aio" customClass="BaseButton" customModule="TLoC_Teams" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="276" width="382" height="40"/>
+                                                        <rect key="frame" x="0.0" y="308" width="382" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="FZD-JB-6Op"/>
                                                         </constraints>
@@ -642,7 +636,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHR-Ea-6X3" customClass="BaseButton" customModule="TLoC_Teams" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="332" width="382" height="40"/>
+                                                        <rect key="frame" x="0.0" y="364" width="382" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="vBI-Ni-cDf"/>
                                                         </constraints>

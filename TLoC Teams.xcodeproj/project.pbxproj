@@ -38,6 +38,7 @@
 		DA1827CB23328C5C005A17BB /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1827CA23328C5C005A17BB /* Chat.swift */; };
 		DA1827CD23328C88005A17BB /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1827CC23328C88005A17BB /* Member.swift */; };
 		DA1827CF23328CEF005A17BB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1827CE23328CEF005A17BB /* LoginViewController.swift */; };
+		DA1A0101234FD0D10006E837 /* ImageLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A0100234FD0D10006E837 /* ImageLoadable.swift */; };
 		DA1A634A232AC197007908E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A6349232AC197007908E8 /* AppDelegate.swift */; };
 		DA1A634C232AC197007908E8 /* ChatOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A634B232AC197007908E8 /* ChatOverviewViewController.swift */; };
 		DA1A634E232AC197007908E8 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1A634D232AC197007908E8 /* EventViewController.swift */; };
@@ -130,6 +131,7 @@
 		DA1827CA23328C5C005A17BB /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		DA1827CC23328C88005A17BB /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		DA1827CE23328CEF005A17BB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DA1A0100234FD0D10006E837 /* ImageLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadable.swift; sourceTree = "<group>"; };
 		DA1A6346232AC197007908E8 /* TLoC Teams.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TLoC Teams.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA1A6349232AC197007908E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA1A634B232AC197007908E8 /* ChatOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOverviewViewController.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				DA1A639C232AC451007908E8 /* Array+Extension.swift */,
 				DA27704D233541EF00E35507 /* UIView+Extension.swift */,
 				DA16B834233F9A4900873129 /* UIViewController+Alert.swift */,
+				DA1A0100234FD0D10006E837 /* ImageLoadable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -763,6 +766,7 @@
 				DA5C876223315E2A00ED510D /* ChatTableViewCell.swift in Sources */,
 				DA27704C2335409E00E35507 /* BaseView.swift in Sources */,
 				DA7A4832232AD5FE00673BEC /* Segues.swift in Sources */,
+				DA1A0101234FD0D10006E837 /* ImageLoadable.swift in Sources */,
 				DA1A63A7232AC74A007908E8 /* ChatDataSource.swift in Sources */,
 				DA1A63AB232AC7F4007908E8 /* ChatViewController.swift in Sources */,
 				DA16B85A2348ACB200873129 /* StorageService.swift in Sources */,

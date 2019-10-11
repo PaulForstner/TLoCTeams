@@ -39,9 +39,6 @@ class ChatTableViewCell: UITableViewCell {
         dateLabel.font = UIFont.systemFont(ofSize: 14)
         
         selectionStyle = .none
-        
-        #warning("REMOVE")
-        groupImageView.image = Asset.paul.image
     }
     
     // MARK: - Configure
@@ -49,7 +46,6 @@ class ChatTableViewCell: UITableViewCell {
     public func configure(with item: Chat?) {
         
         groupNameLabel.text = item?.name
-        setImage(with: item?.imageUrl)
         let firstMessage = item?.messages.first
         
         let sender = firstMessage?.sender
@@ -61,11 +57,13 @@ class ChatTableViewCell: UITableViewCell {
         messageLabel.text = firstMessage?.text ?? "..."
         dateLabel.text = firstMessage?.date
     }
+}
+
+// MARK: - ImageLoadable
+
+extension ChatTableViewCell: ImageLoadable {
     
-    // MARK: - Helper
-    
-    private func setImage(with urlString: String?) {
-        
-        
+    var imageLoadableView: UIImageView {
+        return groupImageView
     }
 }

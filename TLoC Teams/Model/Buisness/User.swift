@@ -11,8 +11,8 @@ import Foundation
 struct User {
     
     var email: String
-    let name: String
-    let imageUrl: String
+    var name: String
+    var imageUrl: String
 }
 
 extension User: DatabaseRepresantable {

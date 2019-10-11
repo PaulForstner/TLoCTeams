@@ -11,61 +11,65 @@ import Firebase
 
 class StorageService: NSObject {
     
-    private func uploadImage(_ image: UIImage) {
+    // MARK: - Enum
+    
+    public enum ImageType {
         
-        let storageRef = Storage.storage().reference()
-        let mountainsRef = storageRef.child("mountains.jpg")
-        let mountainImagesRef = storageRef.child("images/mountains.jpg")
+        case profileImage
+        case eventImage
+        case groupImage
         
-        let data = Data()
-        let riversRef = storageRef.child("images/rivers.jpg")
-        
-        let uploadTask = riversRef.putData(data, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
-                return
-            }
-            
-            let size = metadata.size
-            riversRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {
-                    return
-                }
+        var path: String {
+            switch self {
+            case .profileImage: return "profile/"
+            case .eventImage: return "event/"
+            case .groupImage: return "group/"
             }
         }
     }
     
+    // MARK: - Typealias
     
-//    private func downloadImage(at url: URL, completion: @escaping (UIImage?) -> Void) {
-//        let ref = Storage.storage().reference(forURL: url.absoluteString)
-//        let megaByte = Int64(1 * 1024 * 1024)
-//
-//        ref.getData(maxSize: megaByte) { data, error in
-//            guard let imageData = data else {
-//                completion(nil)
-//                return
-//            }
-//
-//            completion(UIImage(data: imageData))
-//        }
-//    }
-//
-//    private func uploadImage(_ image: UIImage, to channel: Channel, completion: @escaping (URL?) -> Void) {
-//        guard let channelID = channel.id else {
-//            completion(nil)
-//            return
-//        }
-//
-//        guard let scaledImage = image.scaledToSafeUploadSize, let data = scaledImage.jpegData(compressionQuality: 0.4) else {
-//            completion(nil)
-//            return
-//        }
-//
-//        let metadata = StorageMetadata()
-//        metadata.contentType = "image/jpeg"
-//
-//        let imageName = [UUID().uuidString, String(Date().timeIntervalSince1970)].joined()
-//        storage.child(channelID).child(imageName).putData(data, metadata: metadata) { meta, error in
-//            completion(meta?.downloadURL())
-//        }
-//    }
+    typealias UrlCompletion = (URL?) -> Void
+    
+    // MARK: - Properties
+    
+    private static let imagesReference = Storage.storage().reference().child("images")
+    
+    // MARK: - Public
+    
+    class func uploadImage(_ image: UIImage, path: String, type: ImageType, completion: UrlCompletion?) {
+        
+        let imageReference = imagesReference.child("\(type.path)\(path)")
+
+        guard let data = StorageService.getData(from: image) else {
+            completion?(nil)
+            return
+        }
+        
+        imageReference.putData(data, metadata: nil) { (metadata, error) in
+            
+            guard error == nil else {
+                completion?(nil)
+                return
+            }
+            
+            imageReference.downloadURL { (url, error) in
+                completion?(url)
+            }
+        }
+    }
+    
+    // MARK: - Helper
+    
+    private class func getData(from image: UIImage) -> Data? {
+        
+        if let data = image.pngData() {
+            return data
+        } else if let data = image.jpegData(compressionQuality: 0.4) {
+            return data
+        } else {
+            return nil
+        }
+    }
 }

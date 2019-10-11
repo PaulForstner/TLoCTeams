@@ -22,6 +22,11 @@ final class SettingsViewController: UIViewController {
     // MARK: - Properties
     
     private let textFieldDelegate = TextFieldDelegate()
+    private var imageUrlChanged = false {
+        didSet {
+            navigationItem.rightBarButtonItem?.isEnabled = !imageUrlChanged
+        }
+    }
     private var user: User? {
         didSet {
             setUserData()
@@ -34,6 +39,9 @@ final class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Settings"
+        let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+        navigationItem.rightBarButtonItem = saveButton
+        navigationItem.rightBarButtonItem?.isEnabled = false
         setupUI()
         setUserData()
     }
@@ -46,6 +54,12 @@ final class SettingsViewController: UIViewController {
         })
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        cancel()
+    }
+    
     // MARK: - Setup
     
     private func setupUI() {
@@ -55,6 +69,7 @@ final class SettingsViewController: UIViewController {
         deleteAccountButton.setTitle("Delete Account", for: .normal)
         logoutButton.setTitle("Logout", for: .normal)
         
+        profileImageView.isUserInteractionEnabled = true
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                      action: #selector(showActionSheet)))
@@ -91,6 +106,20 @@ final class SettingsViewController: UIViewController {
     
     // MARK: - Helper
     
+    @objc private func save() {
+        
+        guard var user = user, let email = emailInputView.text, let name = nameInputView.text else {
+            return
+        }
+        
+        user.email = email
+        user.name = name
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        UserService.setCurrentUser(user) { (error) in
+            
+        }
+    }
+    
     @objc private func showActionSheet() {
         
         let optionMenu = UIAlertController(title: nil, message: "Choose an Option", preferredStyle: .actionSheet)
@@ -111,16 +140,22 @@ final class SettingsViewController: UIViewController {
     
     private func setUserData() {
     
-        #warning("REMOVE")
-        profileImageView.image = Asset.paul.image
         profileImageView.contentMode = .scaleAspectFill
+        loadImage(url: URL(string: user?.imageUrl ?? ""), placeholderImage: nil)
         emailInputView.text = user?.email
         nameInputView.text = user?.name
+        imageUrlChanged = false
     }
     
     private func textFieldDidChanged() {
     
-        // TODO: - savebutton in navbar wenn user daten anders
+        guard imageUrlChanged == false else {
+            return
+        }
+        
+        let emailChanged = user?.email != emailInputView.text
+        let nameChanged = user?.name != nameInputView.text
+        navigationItem.rightBarButtonItem?.isEnabled = nameChanged || emailChanged
     }
     
     private func showLogin() {
@@ -158,8 +193,20 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            profileImageView.image = image
-            navigationItem.leftBarButtonItem?.isEnabled = true
+            guard let id = Auth.auth().currentUser?.uid else {
+                return
+            }
+            
+            StorageService.uploadImage(image, path: id, type: .profileImage) { [weak self] (url) in
+                
+                guard let urlString = url?.absoluteString else {
+                    return
+                }
+
+                self?.profileImageView.image = image
+                self?.imageUrlChanged = true
+                self?.user?.imageUrl = urlString
+            }
         }
         
         dismiss(animated: false, completion: nil)
@@ -167,5 +214,14 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: false, completion: nil)
+    }
+}
+
+// MARK: - ImageLoadable
+
+extension SettingsViewController: ImageLoadable {
+    
+    var imageLoadableView: UIImageView {
+        return profileImageView
     }
 }

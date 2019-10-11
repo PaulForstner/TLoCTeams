@@ -30,6 +30,7 @@ final class CreateEventViewController: UIViewController {
     
     private let textFieldDelegate = TextFieldDelegate()
     private let dateFormatter = DateFormatter()
+    private var imageUrl: String?
     private var game: Game? {
         didSet {
             didSetGame()
@@ -118,7 +119,21 @@ final class CreateEventViewController: UIViewController {
     // MARK: - IBAction
     
     @IBAction func setImageAction(_ sender: Any) {
+
+        let optionMenu = UIAlertController(title: nil, message: "Choose an Option", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] (_) in
+            self?.presentImagePicker(with: .camera)
+        }
+        let albumAction = UIAlertAction(title: "Album", style: .default) { [weak self] (_) in
+            self?.presentImagePicker(with: .photoLibrary)
+        }
         
+        optionMenu.addAction(cameraAction)
+        optionMenu.addAction(albumAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
     }
     
     @IBAction func clearGame(_ sender: Any) {
@@ -142,13 +157,26 @@ final class CreateEventViewController: UIViewController {
                           game: game,
                           location: location,
                           memberIds: [userId])
-        Firestore.firestore().collection("events").addDocument(data: event.dictionary) { [weak self] (error) in
+        let reference = Firestore.firestore().collection("events").addDocument(data: event.dictionary) { [weak self] (error) in
             
             if error != nil {
                 self?.showAlert(with: Alerts.ErrorTitle, message: Alerts.ErrorMessage)
             } else {
                 self?.navigationController?.popViewController(animated: true)
             }
+        }
+        
+        guard let image = eventImageView.image else {
+            return
+        }
+        
+        StorageService.uploadImage(image, path: reference.documentID, type: .eventImage) { (url) in
+            
+            guard let urlString = url?.absoluteString else {
+                return
+            }
+
+            reference.setValue(urlString, forUndefinedKey: Constants.EventFields.imageUrl)
         }
     }
     
@@ -182,6 +210,14 @@ final class CreateEventViewController: UIViewController {
         locationLabel.text = location?.name ?? "Choose a location"
     }
     
+    private func presentImagePicker(with sourceType: UIImagePickerController.SourceType) {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
     private func textFieldDidChanged() {
         createButton.isEnabled = eventNameInputView.isFilled
     }
@@ -196,3 +232,20 @@ extension CreateEventViewController: StoryboardInitializable {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+extension CreateEventViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            eventImageView.image = image
+        }
+        
+        dismiss(animated: false, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: false, completion: nil)
+    }
+}

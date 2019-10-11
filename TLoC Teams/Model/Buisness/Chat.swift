@@ -10,10 +10,10 @@ import Foundation
 
 struct Chat {
     
-    let name: String
+    var name: String
     let id: String
-    let imageUrl: String?
-    let messages: [Message]
+    var imageUrl: String?
+    var messages: [Message]
 }
 
 extension Chat: DatabaseRepresantable {

@@ -42,9 +42,14 @@ final class ChatDetailViewController: UIViewController {
     private var chat: Chat?
     private var chatsReference: DatabaseReference?
     private var clearHandler: ClearHandler?
+    private var imageUrl: String?
     private let textFieldDelegate = TextFieldDelegate()
     
     // MARK: - Life cycle
+    
+    deinit {
+         cancel()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +64,7 @@ final class ChatDetailViewController: UIViewController {
         
         groupNameInputView.configure(title: "Name", delegate: textFieldDelegate, icon: nil, didChanged: textFieldDidChanged)
         groupNameInputView.text = chat?.name
+        loadImage(url: URL(string: chat?.imageUrl ?? ""), placeholderImage: UIImage())
         
         if chat == nil {
             title = "Create Chat"
@@ -80,7 +86,21 @@ final class ChatDetailViewController: UIViewController {
     // MARK: - IBAction
     
     @IBAction func setImageAction(_ sender: Any) {
+
+        let optionMenu = UIAlertController(title: nil, message: "Choose an Option", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] (_) in
+            self?.presentImagePicker(with: .camera)
+        }
+        let albumAction = UIAlertAction(title: "Album", style: .default) { [weak self] (_) in
+            self?.presentImagePicker(with: .photoLibrary)
+        }
         
+        optionMenu.addAction(cameraAction)
+        optionMenu.addAction(albumAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.present(optionMenu, animated: true, completion: nil)
     }
     
     // MARK: - Helper
@@ -92,7 +112,21 @@ final class ChatDetailViewController: UIViewController {
         }
         
         let chat = Chat(name: name, id: "", imageUrl: "", messages: [])
-        chatsReference?.childByAutoId().setValue(chat.dictionary)
+        let ref = chatsReference?.childByAutoId()
+        ref?.setValue(chat.dictionary)
+        
+        if let image = groupImageView.image, let id = ref?.key {
+            
+            StorageService.uploadImage(image, path: id, type: .groupImage) { (url) in
+                
+                guard let urlString = url?.absoluteString else {
+                    return
+                }
+
+                ref?.setValue(urlString, forUndefinedKey: Constants.ChatFields.imageUrl)
+            }
+        }
+        
         navigationController?.popViewController(animated: true)
     }
     
@@ -122,6 +156,25 @@ final class ChatDetailViewController: UIViewController {
         clearHandler?()
     }
     
+    #warning("save button missing")
+    @objc private func save() {
+
+        guard let chat = chat, let image = groupImageView.image else {
+            return
+        }
+        
+        chatsReference?.child(chat.id).setValue(chat.dictionary)
+        
+        StorageService.uploadImage(image, path: chat.id, type: .groupImage) { [weak self] (url) in
+            
+            guard let urlString = url?.absoluteString else {
+                return
+            }
+
+            self?.chatsReference?.child(chat.id).setValue(urlString, forUndefinedKey: Constants.ChatFields.imageUrl)
+        }
+    }
+    
     private func textFieldDidChanged() {
         
         guard chat == nil else {
@@ -129,6 +182,14 @@ final class ChatDetailViewController: UIViewController {
         }
         
         createButton.isEnabled = groupNameInputView.isFilled
+    }
+    
+    private func presentImagePicker(with sourceType: UIImagePickerController.SourceType) {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = sourceType
+        present(imagePicker, animated: true, completion: nil)
     }
 }
 
@@ -146,5 +207,32 @@ extension ChatDetailViewController: StoryboardInitializable {
         vc.clearHandler = clearHandler
         vc.chat = chat
         return vc
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+extension ChatDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            groupImageView.image = image
+        }
+        
+        dismiss(animated: false, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: false, completion: nil)
+    }
+}
+
+// MARK: - ImageLoadable
+
+extension ChatDetailViewController: ImageLoadable {
+    
+    var imageLoadableView: UIImageView {
+        return groupImageView
     }
 }

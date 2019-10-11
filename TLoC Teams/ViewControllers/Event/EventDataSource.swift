@@ -105,4 +105,21 @@ extension EventDataSource: UITableViewDelegate {
         }
         didSelectHandler(item)
     }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? ImageLoadable else {
+            return
+        }
+        cell.cancel()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard let cell = cell as? ImageLoadable,
+            let url = URL(string: dataSource.item(at: indexPath.row)?.imageUrl ?? "") else {
+                return
+        }
+        cell.loadImage(url: url, placeholderImage: UIImage())
+    }
 }

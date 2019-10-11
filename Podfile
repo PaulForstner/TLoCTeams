@@ -6,7 +6,8 @@ target 'TLoC Teams' do
   use_frameworks!
   
 pod 'SwiftGen', '~> 6.0'
-pod 'Alamofire', '~> 5.0.0-rc.2'
+pod 'Alamofire', '~> 4.8'
+pod 'AlamofireImage', '~> 3.5'
 
 pod 'Firebase/Storage'
 pod 'Firebase/Core'

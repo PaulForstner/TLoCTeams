@@ -44,6 +44,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera if you want to make images while using the app.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>If you want to select images from your Library you need to grant it.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

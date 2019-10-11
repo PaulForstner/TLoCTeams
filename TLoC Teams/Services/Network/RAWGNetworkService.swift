@@ -16,7 +16,7 @@ class RAWGNetworkService: NSObject {
 
         let router = RAWGEndpointRouter.search(game: game)
         
-        NetworkService.request(router: router, responseType: RAWGResponse.self) { (result, error) in
+        _ = NetworkService.request(router: router, responseType: RAWGResponse.self) { (result, error) in
             
             guard let gamesResponse = result?.results else {
                 completion([], error)
