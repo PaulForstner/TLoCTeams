@@ -15,6 +15,7 @@
 		DA15FD942339116D00EFCEEB /* InputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA15FD932339116D00EFCEEB /* InputView.xib */; };
 		DA15FD9D23395EE500EFCEEB /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15FD9B23395EE500EFCEEB /* MessageTableViewCell.swift */; };
 		DA15FD9E23395EE500EFCEEB /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA15FD9C23395EE500EFCEEB /* MessageTableViewCell.xib */; };
+		DA168F312354F808002CACA8 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA168F302354F808002CACA8 /* EventDetailViewController.swift */; };
 		DA16B833233E65F800873129 /* ChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B832233E65F800873129 /* ChatDetailViewController.swift */; };
 		DA16B835233F9A4900873129 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B834233F9A4900873129 /* UIViewController+Alert.swift */; };
 		DA16B8372341020B00873129 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA16B8362341020B00873129 /* Event.swift */; };
@@ -108,6 +109,7 @@
 		DA15FD932339116D00EFCEEB /* InputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputView.xib; sourceTree = "<group>"; };
 		DA15FD9B23395EE500EFCEEB /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		DA15FD9C23395EE500EFCEEB /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		DA168F302354F808002CACA8 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		DA16B832233E65F800873129 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		DA16B834233F9A4900873129 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		DA16B8362341020B00873129 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 			children = (
 				DA16B8412343B84F00873129 /* CreateEventViewController.swift */,
 				DA1A63AC232AC80A007908E8 /* EventDataSource.swift */,
+				DA168F302354F808002CACA8 /* EventDetailViewController.swift */,
 				DA1A634D232AC197007908E8 /* EventViewController.swift */,
 			);
 			path = Event;
@@ -784,6 +787,7 @@
 				DA2B59E1233D52280087ABB2 /* User.swift in Sources */,
 				DA16B8512345454E00873129 /* GameTableViewCell.swift in Sources */,
 				DA1A63A9232AC76D007908E8 /* ChatOverviewDataSource.swift in Sources */,
+				DA168F312354F808002CACA8 /* EventDetailViewController.swift in Sources */,
 				DA1A63AD232AC80A007908E8 /* EventDataSource.swift in Sources */,
 				DA1A63AF232AC820007908E8 /* SettingsViewController.swift in Sources */,
 				DA142078233A810600F23652 /* UserService.swift in Sources */,
