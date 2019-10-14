@@ -29,6 +29,16 @@ final class GameListViewController: UIViewController {
         })
     }()
     
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        
+        let loadingIndicator = UIActivityIndicatorView()
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 13.0, *) {
+            loadingIndicator.style = .large
+        }
+        return loadingIndicator
+    }()
+    
     // MARK: - Properties
     
     private var gameSelectionHandler: GameSelectionHandler?
@@ -59,14 +69,16 @@ final class GameListViewController: UIViewController {
             return
         }
         
+        startLoading()
         RAWGNetworkService.search(game: text) { [weak self] (games, error) in
             
+            self?.endLoading()
+            self?.searchBar.resignFirstResponder()
             if let error = error {
                 self?.showAlert(with: Alerts.ErrorTitle, message: error.localizedDescription)
             } else {
                 self?.dataSource.set(games)
             }
-            self?.searchBar.resignFirstResponder()
         }
     }
     
@@ -74,6 +86,23 @@ final class GameListViewController: UIViewController {
         
         gameSelectionHandler?(game)
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func startLoading() {
+        
+        view.addSubview(loadingIndicator)
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        loadingIndicator.startAnimating()
+    }
+    
+    private func endLoading() {
+        
+        loadingIndicator.stopAnimating()
+        loadingIndicator.removeFromSuperview()
     }
 }
 

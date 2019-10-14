@@ -145,7 +145,7 @@ final class SettingsViewController: UIViewController {
     private func setDisplayedUser(with user: User?, error: Error?) {
         
         if let error = error {
-            print("Error: \(error.localizedDescription)")
+            showAlert(with: Alerts.ErrorTitle, message: error.localizedDescription)
         } else {
             self.user = user
         }
