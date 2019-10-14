@@ -39,11 +39,16 @@ final class ChatDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let textFieldDelegate = TextFieldDelegate()
     private var chat: Chat?
     private var chatsReference: DatabaseReference?
     private var clearHandler: ClearHandler?
     private var imageUrl: String?
-    private let textFieldDelegate = TextFieldDelegate()
+    private var imageUrlChanged = false {
+        didSet {
+            navigationItem.rightBarButtonItem?.isEnabled = imageUrlChanged
+        }
+    }
     
     // MARK: - Life cycle
     
@@ -58,20 +63,36 @@ final class ChatDetailViewController: UIViewController {
         setupDatabase()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addObserver()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        removeObserver()
+    }
+    
     // MARK: - Setup
     
     private func setupUI() {
         
         groupNameInputView.configure(title: "Name", delegate: textFieldDelegate, icon: nil, didChanged: textFieldDidChanged)
         groupNameInputView.text = chat?.name
-        loadImage(url: URL(string: chat?.imageUrl ?? ""), placeholderImage: UIImage())
+        loadImage(url: URL(string: chat?.imageUrl ?? ""), placeholderImage: Asset.groupPlaceholder.image)
         
         if chat == nil {
+            
             title = "Create Chat"
             stackView.addArrangedSubview(createButton)
             createButton.isEnabled = false
         } else {
+            
             title = "Chat Detail"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+            navigationItem.rightBarButtonItem?.isEnabled = false
             stackView.addArrangedSubview(clearHistoryButton)
             stackView.addArrangedSubview(deleteButton)
         }
@@ -103,7 +124,37 @@ final class ChatDetailViewController: UIViewController {
         self.present(optionMenu, animated: true, completion: nil)
     }
     
-    // MARK: - Helper
+    // MARK: - Keyboard
+    
+    private func addObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification){
+        
+        guard let userInfo = notification.userInfo,
+            var keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+        }
+        
+        keyboardFrame = view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification){
+        scrollView.contentInset = .zero
+    }
+    
+    // MARK: - Helper Create
     
     @objc private func create() {
         
@@ -123,12 +174,14 @@ final class ChatDetailViewController: UIViewController {
                     return
                 }
 
-                ref?.setValue(urlString, forUndefinedKey: Constants.ChatFields.imageUrl)
+                ref?.child(Constants.ChatFields.imageUrl).setValue(urlString)
             }
         }
         
         navigationController?.popViewController(animated: true)
     }
+    
+    // MARK: - Helper Detail
     
     @objc private func deleteGroup() {
         
@@ -156,14 +209,20 @@ final class ChatDetailViewController: UIViewController {
         clearHandler?()
     }
     
-    #warning("save button missing")
     @objc private func save() {
 
-        guard let chat = chat, let image = groupImageView.image else {
+        guard var chat = chat else {
             return
         }
         
+        chat.name = groupNameInputView.text ?? ""
+        
         chatsReference?.child(chat.id).setValue(chat.dictionary)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        
+        guard let image = groupImageView.image else {
+            return
+        }
         
         StorageService.uploadImage(image, path: chat.id, type: .groupImage) { [weak self] (url) in
             
@@ -171,17 +230,20 @@ final class ChatDetailViewController: UIViewController {
                 return
             }
 
-            self?.chatsReference?.child(chat.id).setValue(urlString, forUndefinedKey: Constants.ChatFields.imageUrl)
+            self?.imageUrlChanged = false
+            self?.chatsReference?.child(chat.id).child(Constants.ChatFields.imageUrl).setValue(urlString)
         }
     }
     
+    // MARK: - Helper
+    
     private func textFieldDidChanged() {
         
-        guard chat == nil else {
-            return
+        if chat == nil {
+            createButton.isEnabled = groupNameInputView.isFilled
+        } else if let chat = chat{
+            navigationItem.rightBarButtonItem?.isEnabled = groupNameInputView.text != chat.name
         }
-        
-        createButton.isEnabled = groupNameInputView.isFilled
     }
     
     private func presentImagePicker(with sourceType: UIImagePickerController.SourceType) {
@@ -218,6 +280,7 @@ extension ChatDetailViewController: UIImagePickerControllerDelegate, UINavigatio
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             groupImageView.image = image
+            imageUrlChanged = true
         }
         
         dismiss(animated: false, completion: nil)

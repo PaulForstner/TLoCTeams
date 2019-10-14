@@ -24,7 +24,7 @@ final class SettingsViewController: UIViewController {
     private let textFieldDelegate = TextFieldDelegate()
     private var imageUrlChanged = false {
         didSet {
-            navigationItem.rightBarButtonItem?.isEnabled = !imageUrlChanged
+            navigationItem.rightBarButtonItem?.isEnabled = imageUrlChanged
         }
     }
     private var user: User? {
@@ -43,11 +43,6 @@ final class SettingsViewController: UIViewController {
         navigationItem.rightBarButtonItem = saveButton
         navigationItem.rightBarButtonItem?.isEnabled = false
         setupUI()
-        setUserData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         UserService.getCurrentUser(completion: { [weak self] (user) in
             self?.user = user
@@ -115,8 +110,17 @@ final class SettingsViewController: UIViewController {
         user.email = email
         user.name = name
         navigationItem.rightBarButtonItem?.isEnabled = false
-        UserService.setCurrentUser(user) { (error) in
+        
+        if imageUrlChanged, let image = profileImageView.image {
             
+            UserService.setCurrentUser(user, with: image) { [weak self] (error) in
+                self?.setDisplayedUser(with: user, error: error)
+            }
+        } else {
+            
+            UserService.setCurrentUser(user) { [weak self] (error) in
+                self?.setDisplayedUser(with: user, error: error)
+            }
         }
     }
     
@@ -138,10 +142,21 @@ final class SettingsViewController: UIViewController {
         self.present(optionMenu, animated: true, completion: nil)
     }
     
+    private func setDisplayedUser(with user: User?, error: Error?) {
+        
+        if let error = error {
+            print("Error: \(error.localizedDescription)")
+        } else {
+            self.user = user
+        }
+    }
+    
     private func setUserData() {
     
         profileImageView.contentMode = .scaleAspectFill
-        loadImage(url: URL(string: user?.imageUrl ?? ""), placeholderImage: nil)
+        
+        print(user?.imageUrl ?? "")
+        loadImage(url: URL(string: user?.imageUrl ?? ""), placeholderImage: Asset.profilePlaceholder.image)
         emailInputView.text = user?.email
         nameInputView.text = user?.name
         imageUrlChanged = false
@@ -193,20 +208,8 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
-            guard let id = Auth.auth().currentUser?.uid else {
-                return
-            }
-            
-            StorageService.uploadImage(image, path: id, type: .profileImage) { [weak self] (url) in
-                
-                guard let urlString = url?.absoluteString else {
-                    return
-                }
-
-                self?.profileImageView.image = image
-                self?.imageUrlChanged = true
-                self?.user?.imageUrl = urlString
-            }
+            profileImageView.image = image
+            imageUrlChanged = true
         }
         
         dismiss(animated: false, completion: nil)

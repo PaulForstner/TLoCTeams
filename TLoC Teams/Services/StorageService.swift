@@ -40,14 +40,17 @@ class StorageService: NSObject {
     
     class func uploadImage(_ image: UIImage, path: String, type: ImageType, completion: UrlCompletion?) {
         
-        let imageReference = imagesReference.child("\(type.path)\(path)")
+        let imageReference = imagesReference.child(type.path).child(path)
 
         guard let data = StorageService.getData(from: image) else {
             completion?(nil)
             return
         }
+
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
         
-        imageReference.putData(data, metadata: nil) { (metadata, error) in
+        imageReference.putData(data, metadata: metadata) { (metadata, error) in
             
             guard error == nil else {
                 completion?(nil)
@@ -64,9 +67,7 @@ class StorageService: NSObject {
     
     private class func getData(from image: UIImage) -> Data? {
         
-        if let data = image.pngData() {
-            return data
-        } else if let data = image.jpegData(compressionQuality: 0.4) {
+        if let data = image.jpegData(compressionQuality: 0.4) {
             return data
         } else {
             return nil

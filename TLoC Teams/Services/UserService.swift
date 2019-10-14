@@ -46,6 +46,7 @@ class UserService {
     static func setCurrentUser(_ user: User, completion: @escaping CompletionHandler) {
         
         guard let currentUser = Auth.auth().currentUser else {
+            completion(nil)
             return
         }
         
@@ -58,6 +59,26 @@ class UserService {
         } else {
             db.collection("users").document(currentUser.uid).setData(user.dictionary)
             completion(nil)
+        }
+    }
+    
+    static func setCurrentUser(_ user: User?, with image: UIImage, completion: @escaping CompletionHandler) {
+
+        guard let userId = Auth.auth().currentUser?.uid, var user = user else {
+            completion(nil)
+            return
+        }
+        
+        StorageService.uploadImage(image, path: userId, type: .profileImage) { (url) in
+            
+            guard let urlString = url?.absoluteString else {
+                completion(nil)
+                return
+            }
+            
+            user.imageUrl = urlString
+            
+            setCurrentUser(user, completion: completion)
         }
     }
     

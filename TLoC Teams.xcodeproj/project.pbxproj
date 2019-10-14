@@ -413,7 +413,6 @@
 				DA1A639C232AC451007908E8 /* Array+Extension.swift */,
 				DA27704D233541EF00E35507 /* UIView+Extension.swift */,
 				DA16B834233F9A4900873129 /* UIViewController+Alert.swift */,
-				DA1A0100234FD0D10006E837 /* ImageLoadable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -501,6 +500,7 @@
 			children = (
 				DA7A4834232AD70E00673BEC /* StoryboardInitializable.swift */,
 				DA142073233A729F00F23652 /* DatabaseRepresantable.swift */,
+				DA1A0100234FD0D10006E837 /* ImageLoadable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

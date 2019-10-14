@@ -99,10 +99,10 @@ extension GameListDataSource: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        guard let cell = cell as? ImageLoadable,
-            let url = URL(string: dataSource.item(at: indexPath.row)?.imageUrl ?? "") else {
-                return
+        guard let cell = cell as? ImageLoadable else {
+            return
         }
-        cell.loadImage(url: url, placeholderImage: UIImage())
+        let url = URL(string: dataSource.item(at: indexPath.row)?.imageUrl ?? "")
+        cell.loadImage(url: url, placeholderImage: Asset.monitor.image)
     }
 }

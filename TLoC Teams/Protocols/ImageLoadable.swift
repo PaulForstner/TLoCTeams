@@ -20,16 +20,16 @@ protocol ImageLoadable {
 extension ImageLoadable {
 
     func cancel() {
-        self.imageLoadableView.af_cancelImageRequest()
+        imageLoadableView.af_cancelImageRequest()
     }
 
     func loadImage(url: URL?, placeholderImage: UIImage?) {
 
-        self.cancel()
+        cancel()
         guard let url = url else {
             return
         }
 
-        self.imageLoadableView.af_setImage(withURL: url, placeholderImage: placeholderImage, imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true)
+        imageLoadableView.af_setImage(withURL: url, placeholderImage: placeholderImage, imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true)
     }
 }

@@ -61,7 +61,11 @@ final class GameListViewController: UIViewController {
         
         RAWGNetworkService.search(game: text) { [weak self] (games, error) in
             
-            self?.dataSource.set(games)
+            if let error = error {
+                self?.showAlert(with: Alerts.ErrorTitle, message: error.localizedDescription)
+            } else {
+                self?.dataSource.set(games)
+            }
             self?.searchBar.resignFirstResponder()
         }
     }

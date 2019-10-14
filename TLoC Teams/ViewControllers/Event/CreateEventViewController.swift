@@ -176,7 +176,7 @@ final class CreateEventViewController: UIViewController {
                 return
             }
 
-            reference.setValue(urlString, forUndefinedKey: Constants.EventFields.imageUrl)
+            reference.setData([Constants.EventFields.imageUrl: urlString], merge: true)
         }
     }
     
@@ -216,6 +216,10 @@ final class CreateEventViewController: UIViewController {
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func setImage() {
+        
     }
     
     private func textFieldDidChanged() {

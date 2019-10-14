@@ -27,10 +27,10 @@ final class ChatOverviewViewController: UIViewController {
             self?.tableView.reloadData()
         })
     }()
+    
     // MARK: - Properties
     
     private var chatsReference: DatabaseReference?
-    private var chatsHandler: DatabaseHandle?
     
     // MARK: - Life cycle
     
@@ -43,11 +43,7 @@ final class ChatOverviewViewController: UIViewController {
     }
     
     deinit {
-        guard let chatHandler = chatsHandler else {
-            return
-        }
-        
-        chatsReference?.removeObserver(withHandle: chatHandler)
+        chatsReference?.removeAllObservers()
     }
     
     // MARK: - Setup
@@ -63,27 +59,27 @@ final class ChatOverviewViewController: UIViewController {
         chatsReference = Database.database().reference().child("chats")
         chatsReference?.keepSynced(true)
         
-        chatsHandler = chatsReference?.observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
+        chatsReference?.observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
             
             guard let chat = MappingHelper.mapChat(from: snapshot) else {
                 return
             }
             
             self?.dataSource.append(chat)
-            //                        self?.tableView.insertRows(at: [IndexPath(row: self?.messages.count-1, section: 0)], with: .automatic)
-            //            self?.scrollToBottomMessage()
         }
         
-//
-//        chatHandler = chatReference?.child("rooms").observe(.childChanged) { [weak self] (snapshot: DataSnapshot) in
-//
-//        }
-//
-//        chatHandler = chatReference?.child("rooms").observe(.childRemoved) { [weak self] (snapshot: DataSnapshot) in
-//
-//        }
-        
-        
+        chatsReference?.observe(.childRemoved) { [weak self] (snapshot: DataSnapshot) in
+            
+            self?.dataSource.remove(snapshot.key)
+        }
+
+        chatsReference?.observe(.childChanged) { [weak self] (snapshot: DataSnapshot) in
+            
+            guard let chat = MappingHelper.mapChat(from: snapshot) else {
+                return
+            }
+            self?.dataSource.update(chat)
+        }
     }
     
     // MARK: - Helper

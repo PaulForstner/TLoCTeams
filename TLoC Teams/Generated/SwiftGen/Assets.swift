@@ -35,7 +35,6 @@ internal enum Asset {
   internal static let send = ImageAsset(name: "send")
   internal static let settings = ImageAsset(name: "settings")
   internal static let tloc = ImageAsset(name: "tloc")
-  internal static let users = ImageAsset(name: "users")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

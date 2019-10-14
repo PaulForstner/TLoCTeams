@@ -17,7 +17,6 @@ final class ChatViewController: UIViewController {
     @IBOutlet private weak var textFieldContainerView: UIView!
     @IBOutlet private weak var textField: UITextField!
     @IBOutlet private weak var sendButton: UIButton!
-    @IBOutlet private weak var cameraButton: UIButton!
     @IBOutlet private weak var textFieldContainerViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Lazy
@@ -30,27 +29,26 @@ final class ChatViewController: UIViewController {
         })
     }()
     
+    private lazy var titleButton: UIButton = {
+        
+        let button = UIButton(type: .system)
+        button.setTitle(chat?.name, for: .normal)
+        button.addTarget(self, action: #selector(showDetail), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Properties
     
     private var chat: Chat?
     private var user: User?
     private var chatReference: DatabaseReference?
-    private var messagesHandler: DatabaseHandle?
-    private var clearMessagesHandler: DatabaseHandle?
     private var memberHandler: DatabaseHandle?
     private let dateFormatter = DateFormatter()
     
     // MARK: - Life cycle
     
     deinit {
-        
-        if let messagesHandler = messagesHandler  {
-            chatReference?.removeObserver(withHandle: messagesHandler)
-        }
-        
-        if let clearMessagesHandler = clearMessagesHandler  {
-            chatReference?.removeObserver(withHandle: clearMessagesHandler)
-        }
+        chatReference?.removeAllObservers()
     }
     
     override func viewDidLoad() {
@@ -66,7 +64,10 @@ final class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
         
         addObserver()
-        tableView.reloadData()
+        
+        if let chat = chat {
+            titleButton.setTitle(chat.name, for: .normal)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -82,17 +83,12 @@ final class ChatViewController: UIViewController {
         sendButton.isEnabled = false
         sendButton.setImage(Asset.send.image, for: .normal)
         sendButton.tintColor = ColorName.green.color
-        cameraButton.setImage(Asset.camera.image, for: .normal)
-        cameraButton.tintColor = ColorName.green.color
         
         textField.delegate = self
         
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         
-        let titleButton = UIButton(type: .system)
-        titleButton.setTitle(chat?.name, for: .normal)
-        titleButton.addTarget(self, action: #selector(showDetail), for: .touchUpInside)
         navigationItem.titleView = titleButton
     }
     
@@ -105,13 +101,22 @@ final class ChatViewController: UIViewController {
         chatReference = Database.database().reference().child("chats").child(chat.id)
         chatReference?.keepSynced(true)
         
-        messagesHandler = chatReference?.child(Constants.ChatFields.messages).observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
+        chatReference?.child(Constants.ChatFields.messages).observe(.childAdded) { [weak self] (snapshot: DataSnapshot) in
             
             guard let message = MappingHelper.mapMessage(from: snapshot) else {
                 return
             }
             self?.dataSource.append(message)
         }
+        
+        chatReference?.observe(.childChanged, with: { [weak self] (snapshot) in
+            
+            guard snapshot.key == Constants.ChatFields.name else {
+                return
+            }
+            
+            self?.chat?.name = snapshot.value as? String ?? ""
+        })
     }
     
     private func setupUser() {
@@ -176,10 +181,6 @@ final class ChatViewController: UIViewController {
         }
         
         send(message: text)
-    }
-    
-    @IBAction func sendExtraAction(_ sender: Any) {
-        
     }
     
     // MARK: - Helper
