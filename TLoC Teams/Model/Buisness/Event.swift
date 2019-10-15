@@ -16,7 +16,7 @@ struct Event {
     let imageUrl: String
     let game: Game?
     let location: EventLocation?
-    let memberIds: [String]
+    var memberIds: [String]
 }
 
 extension Event: DatabaseRepresantable {

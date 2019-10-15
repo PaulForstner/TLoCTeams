@@ -19,7 +19,7 @@ final class EventViewController: UIViewController {
     
     private lazy var dataSource: EventDataSource = {
         return EventDataSource(didSelectHandler: { (event) in
-            
+            self.showEventDetail(with: event)
         }, updateHandler: { [weak self] in
             self?.tableView.reloadData()
         })
@@ -32,6 +32,10 @@ final class EventViewController: UIViewController {
     
     // MARK: - Life cycle
     
+    deinit {
+        eventsListener?.remove()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,10 +45,6 @@ final class EventViewController: UIViewController {
         
         setupDatabase()
         dataSource.configure(tableView: tableView)
-    }
-    
-    deinit {
-        eventsListener?.remove()
     }
     
     // MARK: - Setup
@@ -78,6 +78,13 @@ final class EventViewController: UIViewController {
     @objc private func showCreateEvent() {
         
         let vc = CreateEventViewController.makeFromStoryboard()
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func showEventDetail(with event: Event) {
+        
+        let vc = EventDetailViewController.makeFromStoryboard(with: event)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }

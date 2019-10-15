@@ -94,7 +94,7 @@ final class ChatViewController: UIViewController {
     
     private func setupDatabase() {
         
-        guard let chat = self.chat else {
+        guard let chat = chat else {
             return
         }
         

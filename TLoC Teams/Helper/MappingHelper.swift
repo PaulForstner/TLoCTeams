@@ -67,7 +67,7 @@ class MappingHelper: NSObject {
         }
         let imageUrl = dic[Constants.ChatFields.imageUrl] as? String
         
-        return Chat(name: name, id: snapShot.key, imageUrl: imageUrl, messages: [])
+        return Chat(name: name, id: snapShot.key, imageUrl: imageUrl)
     }
     
     // MARK: - Helper

@@ -139,7 +139,7 @@ final class SettingsViewController: UIViewController {
         optionMenu.addAction(albumAction)
         optionMenu.addAction(cancelAction)
         
-        self.present(optionMenu, animated: true, completion: nil)
+        present(optionMenu, animated: true, completion: nil)
     }
     
     private func setDisplayedUser(with user: User?, error: Error?) {

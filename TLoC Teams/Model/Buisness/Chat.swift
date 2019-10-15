@@ -13,7 +13,6 @@ struct Chat {
     var name: String
     let id: String
     var imageUrl: String?
-    var messages: [Message]
 }
 
 extension Chat: DatabaseRepresantable {
@@ -21,8 +20,7 @@ extension Chat: DatabaseRepresantable {
     var dictionary: [String : Any] {
         return [
             Constants.ChatFields.name: name,
-            Constants.ChatFields.imageUrl: imageUrl as Any,
-            Constants.ChatFields.messages: messages
+            Constants.ChatFields.imageUrl: imageUrl as Any
         ]
     }
 }

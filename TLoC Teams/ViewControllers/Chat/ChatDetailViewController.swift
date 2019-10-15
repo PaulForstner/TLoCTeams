@@ -121,7 +121,7 @@ final class ChatDetailViewController: UIViewController {
         optionMenu.addAction(albumAction)
         optionMenu.addAction(cancelAction)
         
-        self.present(optionMenu, animated: true, completion: nil)
+        present(optionMenu, animated: true, completion: nil)
     }
     
     // MARK: - Keyboard
@@ -162,7 +162,7 @@ final class ChatDetailViewController: UIViewController {
             return
         }
         
-        let chat = Chat(name: name, id: "", imageUrl: "", messages: [])
+        let chat = Chat(name: name, id: "", imageUrl: "")
         let ref = chatsReference?.childByAutoId()
         ref?.setValue(chat.dictionary)
         

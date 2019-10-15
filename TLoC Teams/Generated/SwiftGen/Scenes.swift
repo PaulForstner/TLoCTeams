@@ -30,6 +30,8 @@ internal enum StoryboardScene {
 
     internal static let createEventViewController = SceneType<TLoC_Teams.CreateEventViewController>(storyboard: Main.self, identifier: "CreateEventViewController")
 
+    internal static let eventDetailViewController = SceneType<TLoC_Teams.EventDetailViewController>(storyboard: Main.self, identifier: "EventDetailViewController")
+
     internal static let eventViewController = SceneType<TLoC_Teams.EventViewController>(storyboard: Main.self, identifier: "EventViewController")
 
     internal static let gameListViewController = SceneType<TLoC_Teams.GameListViewController>(storyboard: Main.self, identifier: "GameListViewController")

@@ -133,7 +133,7 @@ final class CreateEventViewController: UIViewController {
         optionMenu.addAction(albumAction)
         optionMenu.addAction(cancelAction)
         
-        self.present(optionMenu, animated: true, completion: nil)
+        present(optionMenu, animated: true, completion: nil)
     }
     
     @IBAction func clearGame(_ sender: Any) {
