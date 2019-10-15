@@ -110,5 +110,7 @@ struct Alerts {
     static let DeleteAlertTitle = "Delete Account"
     static let DeleteAlertDescription = "Are you sure you want to delete your account?"
     static let LogoutErrorDescription = "Could not log out."
+    static let SuccessTitle = "Success!"
+    static let SuccessfullySendForgotPassword = "An email to reset your password was send to you."
 }
 

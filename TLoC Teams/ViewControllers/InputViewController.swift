@@ -162,12 +162,15 @@ final class InputViewController: UIViewController {
             return
         }
         
-        UserService.sendPasswordReset(to: email) { (error) in
+        UserService.sendPasswordReset(to: email) { [weak self] (error) in
             
-            guard let e = error else {
-                return
+            if let error = error {
+                self?.showAlert(with: Alerts.ErrorTitle, message: error.localizedDescription)
+            } else {
+                self?.showAlert(with: Alerts.SuccessTitle, message: Alerts.SuccessfullySendForgotPassword, action: {
+                    self?.navigationController?.popViewController(animated: true)
+                })
             }
-            print("Error reset password: \(e.localizedDescription)")
         }
     }
     
@@ -181,8 +184,8 @@ final class InputViewController: UIViewController {
         
         UserService.createUser(with: email, username: username, password: password) { [weak self] (error) in
             
-            if let e = error {
-                print("Register error: \(e.localizedDescription)")
+            if let error = error {
+                self?.showAlert(with: Alerts.ErrorTitle, message: error.localizedDescription)
             } else {
                 self?.showTabbar()
             }

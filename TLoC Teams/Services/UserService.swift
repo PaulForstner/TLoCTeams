@@ -122,8 +122,14 @@ class UserService {
     
     static func deleteUser(completion: CompletionHandler?) {
         
-        Auth.auth().currentUser?.delete(completion: { (error) in
+        guard let user = Auth.auth().currentUser else {
+            completion?(nil)
+            return
+        }
+        
+        user.delete(completion: { (error) in
             
+            db.collection("users").document(user.uid).delete()
             completion?(error)
         })
     }
