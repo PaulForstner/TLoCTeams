@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HcC-CH-84r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HcC-CH-84r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -472,19 +472,38 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tRu-Hk-u6l">
-                                <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="730.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The provided data comes from https://rawg.io " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4U-uz-KcM">
+                                <rect key="frame" x="16" y="839.5" width="382" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7q-uz-BFN" customClass="SeparatorView" customModule="TLoC_Teams" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="830.5" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="zeL-z1-DJH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="d7q-uz-BFN" firstAttribute="leading" secondItem="dxB-TO-ofO" secondAttribute="leading" id="4cF-p9-bIg"/>
                             <constraint firstItem="Xk9-9C-vPJ" firstAttribute="top" secondItem="dxB-TO-ofO" secondAttribute="top" id="6TQ-Lk-gVf"/>
-                            <constraint firstAttribute="bottom" secondItem="tRu-Hk-u6l" secondAttribute="bottom" id="J0r-Y0-fMV"/>
+                            <constraint firstItem="dxB-TO-ofO" firstAttribute="trailing" secondItem="d7q-uz-BFN" secondAttribute="trailing" id="CTe-bN-DYE"/>
                             <constraint firstItem="dxB-TO-ofO" firstAttribute="trailing" secondItem="tRu-Hk-u6l" secondAttribute="trailing" id="Jdk-5G-jiQ"/>
                             <constraint firstItem="tRu-Hk-u6l" firstAttribute="top" secondItem="Xk9-9C-vPJ" secondAttribute="bottom" id="MvV-Ry-I2C"/>
                             <constraint firstItem="tRu-Hk-u6l" firstAttribute="leading" secondItem="dxB-TO-ofO" secondAttribute="leading" id="XZ6-RU-qoX"/>
+                            <constraint firstItem="x4U-uz-KcM" firstAttribute="leading" secondItem="dxB-TO-ofO" secondAttribute="leading" constant="16" id="Xnp-yc-Lpk"/>
+                            <constraint firstItem="dxB-TO-ofO" firstAttribute="bottom" secondItem="x4U-uz-KcM" secondAttribute="bottom" constant="8" id="ciX-kM-eaH"/>
+                            <constraint firstItem="d7q-uz-BFN" firstAttribute="top" secondItem="tRu-Hk-u6l" secondAttribute="bottom" id="eJ8-E5-KIT"/>
                             <constraint firstItem="dxB-TO-ofO" firstAttribute="trailing" secondItem="Xk9-9C-vPJ" secondAttribute="trailing" id="mRR-c6-XSq"/>
                             <constraint firstItem="Xk9-9C-vPJ" firstAttribute="leading" secondItem="dxB-TO-ofO" secondAttribute="leading" id="rE2-JX-rZ2"/>
+                            <constraint firstItem="x4U-uz-KcM" firstAttribute="top" secondItem="d7q-uz-BFN" secondAttribute="bottom" constant="8" id="sG3-ci-Pg4"/>
+                            <constraint firstItem="dxB-TO-ofO" firstAttribute="trailing" secondItem="x4U-uz-KcM" secondAttribute="trailing" constant="16" id="snh-CC-fd3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dxB-TO-ofO"/>
                     </view>

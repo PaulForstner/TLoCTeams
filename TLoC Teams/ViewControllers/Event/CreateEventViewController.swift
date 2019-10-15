@@ -66,6 +66,7 @@ final class CreateEventViewController: UIViewController {
     
     private func setupUI() {
         
+        createButton.setTitle("Create", for: .normal)
         createButton.isEnabled = false
         eventNameInputView.configure(title: "Name", delegate: textFieldDelegate, icon: nil, didChanged: textFieldDidChanged)
         
