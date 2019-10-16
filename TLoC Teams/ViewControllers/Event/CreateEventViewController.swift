@@ -130,8 +130,14 @@ final class CreateEventViewController: UIViewController {
             self?.presentImagePicker(with: .photoLibrary)
         }
         
-        optionMenu.addAction(cameraAction)
-        optionMenu.addAction(albumAction)
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            optionMenu.addAction(albumAction)
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            optionMenu.addAction(cameraAction)
+        }
+        
         optionMenu.addAction(cancelAction)
         
         present(optionMenu, animated: true, completion: nil)
